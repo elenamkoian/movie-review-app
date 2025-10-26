@@ -1,13 +1,11 @@
 import bcrypt from 'bcrypt';
-import User from "../models/user.js"
+import User from "../models/user.js";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 class UserController {
-
-  async getAll(req, res) {
-    const users = await User.find()
-    return res.send({users})
-  }
-
   async signup(req, res) {
     let { name, surname, login, password } = req.body;
     try {
@@ -25,7 +23,26 @@ class UserController {
   }
 
   async login(req, res) {
+    const { login, password } = req.body;
+    try {
+      if(!login.trim() || !password.trim()) {
+        return res.status(400).send({ message: "Missing credentials" })
+      }
+      const foundUser = await User.findOne({ login });
+      if(!foundUser) {
+        return res.status(404).send({ message: "User not found" })
+      }
 
+      const isPasswordCorrect = await bcrypt.compare(password, foundUser.password);
+      if(!isPasswordCorrect) {
+        return res.status(400).send({ message: "Invalid Credentials" })
+      }
+
+      const token = jwt.sign({ id: foundUser._id }, process.env.JWT_SECRET, { expiresIn: "7d" })
+      return res.status(200).send({ message: "Successful log in", token })
+    } catch(err) {
+       return res.status(500).send({ message: err.message })
+    }
   }
 
   async getUser(req, res) {
