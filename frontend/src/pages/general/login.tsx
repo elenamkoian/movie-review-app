@@ -3,13 +3,13 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { Axios } from "../../lib/api";
 import axios from "axios";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import type { ILoginUser } from "../../types";
 
 export const Login = () => {
   const { register, handleSubmit, formState: { errors }} = useForm<ILoginUser>();
   const [error, setError] = useState("");
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleLogin: SubmitHandler<ILoginUser> = async (data: ILoginUser) => {
     console.log(data);
@@ -17,7 +17,7 @@ export const Login = () => {
       .post("/auth/login", data)
       .then(response => {
         console.log(response);
-        // navigate("/movies")
+        navigate("/homce")
       })
       .catch(err => {
         if (axios.isAxiosError(err)) {

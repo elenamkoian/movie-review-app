@@ -3,6 +3,7 @@ import { userRouter } from "./src/routes/user.js";
 import { env } from './src/config/env.js';
 import { connectDb, disconnectDb } from './src/config/db.js';
 import cors from "cors"
+import { movieRouter } from "./src/routes/movie.js";
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(cors({
 }))
 
 app.use("/auth", userRouter);
+app.use("/movies", movieRouter)
 
 app.listen(env.PORT, async () => {
   console.log(`Server started on: http://localhost:${env.PORT}`)
