@@ -4,3 +4,11 @@ export const Axios = axios.create({
     baseURL: "http://localhost:4005/",
     withCredentials: true
 })
+
+Axios.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});

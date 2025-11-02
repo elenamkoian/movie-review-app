@@ -38,7 +38,7 @@ class UserController {
         return res.status(400).send({ message: "Invalid Credentials" })
       }
 
-      const token = jwt.sign({ id: foundUser._id }, process.env.JWT_SECRET, { expiresIn: "7d" })
+      const token = jwt.sign({ user: foundUser }, process.env.JWT_SECRET, { expiresIn: "7d" })
       return res.status(200).send({ message: "Successful log in", token })
     } catch(err) {
        return res.status(500).send({ message: err.message })
@@ -46,8 +46,27 @@ class UserController {
   }
 
   async getUser(req, res) {
+    const user = req.user;
+    try {
+      const foundUser = await User.findById(user._id).select("-password");
+      if(!foundUser) {
+        return res.status(404).send({ message: "User not found" })
+      }
 
-  }
+      return res.status(200).send({ user: foundUser })
+    } catch(err) {
+      return res.status(500).send({ message: err.message })
+    }
+   }
+
+   async logout(req, res) {
+    try {
+      // For JWT, logout is typically handled on the client side by deleting the token.
+      return res.status(200).send({ message: "Successfully logged out" });
+    } catch(err) {
+      return res.status(500).send({ message: err.message });
+    }
+   }
 }
 
 export default new UserController();

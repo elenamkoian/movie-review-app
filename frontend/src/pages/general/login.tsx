@@ -12,12 +12,11 @@ export const Login = () => {
   const navigate = useNavigate();
 
   const handleLogin: SubmitHandler<ILoginUser> = async (data: ILoginUser) => {
-    console.log(data);
     Axios
       .post("/auth/login", data)
       .then(response => {
-        console.log(response);
-        navigate("/homce")
+        localStorage.setItem("token", response.data.token)
+        navigate("/")
       })
       .catch(err => {
         if (axios.isAxiosError(err)) {
