@@ -6,7 +6,7 @@ export interface IUser {
   avatar?: File;
 }
 
-export type ILoginUser = Pick<IUser, "login" | "password">
+export type ILoginUser = Pick<IUser, "login" | "password">;
 
 export interface IMovie {
   id: number;
@@ -39,16 +39,29 @@ export interface IMovieDetails {
   overview: string;
   popularity: number;
   poster_path: string | null;
-  production_companies: { id: number; name: string; logo_path: string | null; origin_country: string }[];
+  production_companies: {
+    id: number;
+    name: string;
+    logo_path: string | null;
+    origin_country: string;
+  }[];
   production_countries: { iso_3166_1: string; name: string }[];
   release_date: string;
   revenue: number;
   runtime: number;
-  spoken_languages: { english_name: string, iso_639_1: string; name: string }[];
+  spoken_languages: { english_name: string; iso_639_1: string; name: string }[];
   status: string;
   tagline: string;
   title: string;
   video: boolean;
   vote_average: number;
   vote_count: number;
+}
+
+export interface IReview {
+  _id: number;
+  user: IUser;
+  description: string;
+  movie: IMovie;
+  edited?: boolean
 }

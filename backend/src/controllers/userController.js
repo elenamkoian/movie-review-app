@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import User from "../models/user.js";
+import Review from '../models/review.js';
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 
@@ -25,23 +26,23 @@ class UserController {
   async login(req, res) {
     const { login, password } = req.body;
     try {
-      if(!login.trim() || !password.trim()) {
+      if (!login.trim() || !password.trim()) {
         return res.status(400).send({ message: "Missing credentials" })
       }
       const foundUser = await User.findOne({ login });
-      if(!foundUser) {
+      if (!foundUser) {
         return res.status(404).send({ message: "User not found" })
       }
 
       const isPasswordCorrect = await bcrypt.compare(password, foundUser.password);
-      if(!isPasswordCorrect) {
+      if (!isPasswordCorrect) {
         return res.status(400).send({ message: "Invalid Credentials" })
       }
 
       const token = jwt.sign({ user: foundUser }, process.env.JWT_SECRET, { expiresIn: "7d" })
       return res.status(200).send({ message: "Successful log in", token })
-    } catch(err) {
-       return res.status(500).send({ message: err.message })
+    } catch (err) {
+      return res.status(500).send({ message: err.message })
     }
   }
 
@@ -49,24 +50,38 @@ class UserController {
     const user = req.user;
     try {
       const foundUser = await User.findById(user._id).select("-password");
-      if(!foundUser) {
+      if (!foundUser) {
         return res.status(404).send({ message: "User not found" })
       }
 
       return res.status(200).send({ user: foundUser })
-    } catch(err) {
+    } catch (err) {
       return res.status(500).send({ message: err.message })
     }
-   }
+  }
 
-   async logout(req, res) {
+  async logout(req, res) {
     try {
       // For JWT, logout is typically handled on the client side by deleting the token.
       return res.status(200).send({ message: "Successfully logged out" });
-    } catch(err) {
+    } catch (err) {
       return res.status(500).send({ message: err.message });
     }
-   }
+  }
+
+  async getUserReviews(req, res) {
+    try {
+      const user = req.user; // assume req.user is already set by authentication middleware
+
+      // Find all reviews where userId matches the logged-in user
+      const reviews = await Review.find({ userId: user._id });
+
+      return res.status(200).json({ message: "Fetched reviews", reviews });
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json({ message: "Failed to fetch reviews" });
+    }
+  }
 }
 
 export default new UserController();

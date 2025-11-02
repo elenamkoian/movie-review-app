@@ -3,6 +3,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import type { IUser } from "../../types";
 import { Axios } from "../../lib/api";
 import { Navbar} from "../layout/navbar"
+import { ToastContainer } from "react-toastify";
 
 export const Layout = () => {
   const [profile, setProfile] = useState<IUser | null>(null);
@@ -28,6 +29,18 @@ export const Layout = () => {
       <main className="w-full h-full">
         <Outlet context={{ profile }} />
       </main>
+
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
 
       {/* Footer */}
       <footer className="flex justify-center bg-gray-800 text-gray-300 py-6 mt-auto">

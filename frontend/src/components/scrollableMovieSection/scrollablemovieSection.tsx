@@ -1,4 +1,5 @@
 import type { IMovie } from "../../types";
+import { useNavigate } from "react-router-dom";
 
 interface UpcomingMoviesProps {
   movies: IMovie[];
@@ -9,8 +10,11 @@ export const ScrollableMovieSection: React.FC<UpcomingMoviesProps> = ({
   movies,
   sectionTitle
 }) => {
+
+  const navigate = useNavigate();
+
   return (
-    <section className="p-14 text-white relative bg-linear-to-t via-gray-900 from-gray-900 to-transparent">
+    <section className="p-10 text-white relative bg-linear-to-t via-gray-900 from-gray-900 to-transparent">
       <h2 className="text-3xl font-bold m-16 text-center">
         🎬 {sectionTitle}
       </h2>
@@ -24,6 +28,7 @@ export const ScrollableMovieSection: React.FC<UpcomingMoviesProps> = ({
         </div>
         {movies.map((m) => (
           <div
+            onClick={() => navigate(`/movie/${m.id}`) }
             key={m.id}
             className="relative shrink-0 w-48 sm:w-56 md:w-60 cursor-pointer group transition-transform duration-300 hover:scale-105"
           >

@@ -6,7 +6,7 @@ import { Layout } from "./pages/layout/layout";
 import { FavoritesPage } from "./pages/favorites/favorites";
 import { ProfilePage } from "./pages/profile/profile";
 import { SearchPage } from "./pages/search/search";
-import { ReviewsPage } from "./pages/reviews/page";
+import { ReviewsPage } from "./pages/reviews/ReviewPage";
 import { MoviesPage } from "./pages/movies/movies";
 import { MovieView } from "./pages/movies/movieView";
 

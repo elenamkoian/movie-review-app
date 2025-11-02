@@ -32,9 +32,9 @@ export const HeroSection = () => {
             </button>
           </Link>
           <Link to="/reviews">
-          <button className="bg-transparent border cursor-pointer border-white px-6 py-3 rounded-xl hover:bg-white hover:text-gray-900 hover:scale-110 duration-400 transition">
-            Write a Review
-          </button>
+            <button className="bg-transparent border cursor-pointer border-white px-6 py-3 rounded-xl hover:bg-white hover:text-gray-900 hover:scale-110 duration-400 transition">
+              Browse Reviews
+            </button>
           </Link>
 
           <div className="animate-bounce absolute top-90 left-1/2 transform -translate-x-1/2 cursor-pointer">
