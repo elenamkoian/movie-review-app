@@ -1,13 +1,17 @@
 import type { IMovie } from "../../types";
+import { useNavigate } from "react-router-dom";
 interface MovieCardProps {
   movie: IMovie;
 }
 
 export const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
+  const navigate = useNavigate();
+
   return (
     <div
+      onClick={() => navigate(`/movie/${movie.id}`) }
       key={movie.id}
-      className="relative bg-white rounded-2xl overflow-hidden shadow-lg group transition-transform duration-300 hover:scale-105"
+      className="relative cursor-pointer bg-white rounded-2xl overflow-hidden shadow-lg group transition-transform duration-300 hover:scale-105"
     >
       <img
         src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}

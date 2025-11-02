@@ -1,6 +1,5 @@
 import { RoundedArrowDownIcon } from "../../components/roundedArrowDown";
-
-export { RoundedArrowDownIcon } from "../../components/roundedArrowDown";
+import { Link } from "react-router-dom";
 
 export const HeroSection = () => {
   const scrollDown = () => {
@@ -11,7 +10,7 @@ export const HeroSection = () => {
   };
 
   return (
-    <section className="relative h-screen flex flex-col items-center justify-center text-center bg-gray-900 text-white overflow-hidden">
+    <section className="relative h-screen mb-10 flex flex-col items-center justify-center text-center bg-gray-900 text-white overflow-hidden">
       <div className="absolute inset-0 bg-linear-to-t from-blue-950 via-black/30 to-transparent">
         <img
           src="../src/assets/bg2.jpg"
@@ -27,13 +26,16 @@ export const HeroSection = () => {
           Join the community of movie lovers sharing honest opinions
         </p>
         <div className="flex justify-center gap-4">
-          {/* <button className="bg-red-600 cursor-pointer text-white border border-white px-6 py-3 rounded-xl hover:bg-red-800 transition"> */}
-          <button className="bg-red-600 cursor-pointer text-white border border-white px-6 py-3 rounded-xl transform hover:scale-110 hover:bg-red-800 transition duration-400">
-            Browse Movies
-          </button>
+          <Link to="/search">
+            <button className="bg-red-600 cursor-pointer text-white border border-white px-6 py-3 rounded-xl transform hover:scale-110 hover:bg-red-800 transition duration-400">
+              Browse Movies
+            </button>
+          </Link>
+          <Link to="/reviews">
           <button className="bg-transparent border cursor-pointer border-white px-6 py-3 rounded-xl hover:bg-white hover:text-gray-900 hover:scale-110 duration-400 transition">
             Write a Review
           </button>
+          </Link>
 
           <div className="animate-bounce absolute top-90 left-1/2 transform -translate-x-1/2 cursor-pointer">
             <RoundedArrowDownIcon onClick={scrollDown} />

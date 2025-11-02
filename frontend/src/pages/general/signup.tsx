@@ -5,8 +5,11 @@ import type { IUser } from "../../types";
 import type { SubmitHandler } from "react-hook-form";
 import { Axios } from "../../lib/api";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export const SignUp = () => {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -14,29 +17,20 @@ export const SignUp = () => {
     reset,
   } = useForm<IUser>();
   const [error, setError] = useState("");
-  // const navigate = useNavigate();
 
   const handleSignup: SubmitHandler<IUser> = async (data: IUser) => {
-    console.log(data);
     Axios.post("/auth/signup", data)
       .then((response) => {
         console.log(response)
+        navigate("/login");
         reset()
-      }) // navigate("/login");
+      })
       .catch((err) => {
         if (axios.isAxiosError(err)) {
           const errorResp = err.response?.data;
           setError(errorResp.message || "Sign up failed");
         }
       });
-
-    // try {
-    //   const res = await axios.post("http://localhost:4005/auth/login", data);
-    //   localStorage.setItem("token", res.data.token);
-    //   navigate("/movies");
-    // } catch (err) {
-    //   setError(err.response?.data?.message || "Login failed");
-    // }
   };
 
   return (

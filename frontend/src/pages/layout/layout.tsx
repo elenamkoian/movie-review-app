@@ -25,7 +25,7 @@ export const Layout = () => {
       <Navbar />
 
       {/* Page content */}
-      <main className="grow mx-auto w-full pt-10">
+      <main className="w-full h-full">
         <Outlet context={{ profile }} />
       </main>
 

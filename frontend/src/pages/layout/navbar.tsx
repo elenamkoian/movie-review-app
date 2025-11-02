@@ -22,8 +22,7 @@ export const Navbar = () => {
     }`;
 
   const categories = [
-    { label: "Popular", to: "/movies/popular" },
-    { label: "Top Rated", to: "/movies/top-rated" },
+    { label: "Popular", to: "/" },
     { label: "Upcoming", to: "/movies/upcoming" },
     { label: "Action", to: "/movies/action" },
     { label: "Comedy", to: "/movies/comedy" },
@@ -74,8 +73,8 @@ export const Navbar = () => {
           </div>
         </div>
 
-        <NavLink to="/watchlist" className={linkClasses}>
-          My Watch Later
+        <NavLink to="/favorites" className={linkClasses}>
+          My Favorites
         </NavLink>
         <NavLink to="/reviews" className={linkClasses}>
           My Reviews
