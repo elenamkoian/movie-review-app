@@ -5,10 +5,11 @@ import { HomePage } from "./pages/home/home";
 import { Layout } from "./pages/layout/layout";
 import { FavoritesPage } from "./pages/favorites/favorites";
 import { ProfilePage } from "./pages/profile/profile";
-import { SearchPage } from "./pages/search/search";
-import { ReviewsPage } from "./pages/reviews/ReviewPage";
+import { SearchMoviePage } from "./pages/search-movie/search-movie";
+import { SearchUserPage } from "./pages/search-user/search-user";
 import { MoviesPage } from "./pages/movies/movies";
 import { MovieView } from "./pages/movies/movieView";
+import { ReviewsPage } from "./pages/reviews/reviewPage";
 
 //make the default path login, or navigate to sign up if user does not exist
 export const router = createBrowserRouter([
@@ -29,7 +30,8 @@ export const router = createBrowserRouter([
       { path: "/movie/:id", element: <MovieView /> },
       { path: "profile", element: <ProfilePage /> },
       { path: "favorites", element: <FavoritesPage /> },
-      { path: "search", element: <SearchPage /> },
+      { path: "search-movie", element: <SearchMoviePage /> },
+      { path: "search-user", element: <SearchUserPage /> },
       { path: "reviews", element: <ReviewsPage /> },
     ],
   },

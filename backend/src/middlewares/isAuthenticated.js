@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-export const isAusthenticated = (req, res, next) => {
+export const isAuthenticated = (req, res, next) => {
   const authHeader = req.headers.authorization;
   if(!authHeader || !authHeader.startsWith("Bearer ")) {
     return res.status(401).send({ message: "Please provide a token" });

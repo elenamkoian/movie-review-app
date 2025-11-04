@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { Axios } from "../../lib/api";
 import type { IMovieDetails } from "../../types";
 import { AddReviewForm } from "./addReviewForm";
+import { toast } from "react-toastify";
 
 export const MovieView = () => {
   const { id } = useParams<{ id: string }>();
@@ -21,10 +22,21 @@ export const MovieView = () => {
   const handleWriteReviewClick = () => {
     setShowReviewForm(true);
 
-    // Give React a moment to render the form before scrolling
     setTimeout(() => {
       formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 100);
+  };
+
+  const handleAddToFavoriteClick = () => {
+    Axios.post(`/movies/${id}/favorite`)
+      .then((response) =>
+        toast.success(response.data.message || "Added to the favorites")
+      )
+      .catch((error) => {
+        toast.error(
+          error.response.data.message || "Failed to add to favorites"
+        );
+      });
   };
 
   return (
@@ -79,7 +91,10 @@ export const MovieView = () => {
 
                 {/* Action Buttons */}
                 <div className="flex gap-4 mt-4">
-                  <button className="w-45 cursor-pointer rounded-lg px-4 py-2 bg-blue-500 text-white shadow-md hover:bg-blue-600 hover:scale-105 hover:shadow-lg transition transform duration-200 ease-in-out">
+                  <button
+                    onClick={handleAddToFavoriteClick}
+                    className="w-45 cursor-pointer rounded-lg px-4 py-2 bg-blue-500 text-white shadow-md hover:bg-blue-600 hover:scale-105 hover:shadow-lg transition transform duration-200 ease-in-out"
+                  >
                     Add to Favorites
                   </button>
 
@@ -122,7 +137,6 @@ export const MovieView = () => {
             movieId={movie?.id}
             title={movie?.title}
             onCancel={() => setShowReviewForm(false)}
-            // onSubmit={handleSubmitReview}
           />
         </div>
       )}

@@ -21,7 +21,8 @@ export const AddReviewForm: React.FC<AddReviewFormProps> = ({
     formState: { errors },
   } = useForm<{ description: string }>();
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
   const handleSubmitForm = (data: { description: string }) => {
     Axios.post(`/movies/${movieId}/review`, data)
       .then(() => {

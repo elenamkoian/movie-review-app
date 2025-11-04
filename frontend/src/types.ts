@@ -65,3 +65,11 @@ export interface IReview {
   movie: IMovie;
   edited?: boolean
 }
+
+export interface IFavoriteMovie {
+  movie: IMovie,
+  userId: string,
+  watched: boolean,
+  date: Date,
+  _id: string
+}

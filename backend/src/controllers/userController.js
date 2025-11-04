@@ -62,26 +62,12 @@ class UserController {
 
   async logout(req, res) {
     try {
-      // For JWT, logout is typically handled on the client side by deleting the token.
       return res.status(200).send({ message: "Successfully logged out" });
     } catch (err) {
       return res.status(500).send({ message: err.message });
     }
   }
 
-  async getUserReviews(req, res) {
-    try {
-      const user = req.user; // assume req.user is already set by authentication middleware
-
-      // Find all reviews where userId matches the logged-in user
-      const reviews = await Review.find({ userId: user._id });
-
-      return res.status(200).json({ message: "Fetched reviews", reviews });
-    } catch (err) {
-      console.error(err);
-      return res.status(500).json({ message: "Failed to fetch reviews" });
-    }
-  }
 }
 
 export default new UserController();

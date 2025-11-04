@@ -20,13 +20,13 @@ export const HeroSection = () => {
 
       <div className="relative">
         <h1 className="text-3xl sm:text-6xl font-extrabold mb-4 drop-shadow-lg transform transition-transform duration-500">
-          Discover. Rate. Review.
+          Discover. Save. Review.
         </h1>
         <p className="text-lg sm:text-xl text-gray-200 mb-8 max-w-2xl mx-auto transform transition-transform duration-500">
           Join the community of movie lovers sharing honest opinions
         </p>
         <div className="flex justify-center gap-4">
-          <Link to="/search">
+          <Link to="/search-movie">
             <button className="bg-red-600 cursor-pointer text-white border border-white px-6 py-3 rounded-xl transform hover:scale-110 hover:bg-red-800 transition duration-400">
               Browse Movies
             </button>

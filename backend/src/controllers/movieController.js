@@ -2,6 +2,7 @@ import axios from "axios";
 import fetch from "node-fetch";
 import dotenv from "dotenv";
 import Review from "../models/review.js";
+import Favorite from "../models/favorite.js"
 
 dotenv.config();
 
@@ -84,7 +85,6 @@ class MovieController {
   }
 
   async editReview(req, res) {
-    // add edit review
     const reviewId = req.params.id;
     const description = req.body.description;
     const user = req.user;
@@ -105,7 +105,6 @@ class MovieController {
     }
   }
 
-  //delete Review
   async deleteReview(req, res) {
     const reviewId = req.params.id
     const user = req.user
@@ -120,6 +119,105 @@ class MovieController {
       return res.status(200).send({ message: "Review deleted", deleteCount: deleted.deletedCount });
     } catch (error) {
       return res.staus(500).send({ message: error.message })
+    }
+  }
+
+  async getUserReviews(req, res) {
+    try {
+      const user = req.user;
+
+      const reviews = await Review.find({ userId: user._id });
+
+      return res.status(200).json({ message: "Fetched reviews", reviews });
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json({ message: "Failed to fetch reviews" });
+    }
+  }
+
+  async createFavorite(req, res) {
+    const user = req.user;
+    const movieId = req.params.id;
+
+    try {
+      const existingFavorite = await Favorite.findOne({
+        userId: user._id,
+        "movie.id": Number(movieId)
+      });
+
+      if (existingFavorite) {
+        return res.status(400).send({ message: "Movie is already in favorites" });
+      }
+
+      const movieResponse = await axios.get(`https://api.themoviedb.org/3/movie/${movieId}`, {
+        params: { api_key: API_KEY },
+      });
+
+      const movieData = movieResponse.data;
+
+      // create new favorite
+      const favorite = await Favorite.create({
+        userId: user._id,
+        movie: movieData,
+        watched: false,
+        date: Date.now()
+      });
+
+      return res.status(201).send({ message: "Movie added to favorites successfully", favorite, });
+
+    } catch (error) {
+      console.error(error);
+      return res.status(500).send({ message: error.message });
+    }
+  }
+
+  async getFavorites(req, res) {
+    const user = req.user;
+    try {
+      const favorites = await Favorite.find({ userId: user._id });
+
+      if (!favorites) {
+        return res.status(404).send({ message: "Favorites not found" })
+      }
+
+      return res.status(200).send({ message: "Favorites fetched successfully", favorites })
+    } catch (error) {
+      console.error(error)
+      return res.status(500).send({ message: error.message })
+    }
+  }
+
+  async removeFavorite(req, res) {
+    try {
+      const favoriteId = req.params.id;
+      const user = req.user;
+
+      const favorite = await Favorite.findById(favoriteId);
+      if (!favorite) {
+        return res.status(404).send({ message: "Favorite not found" });
+      }
+
+      const deleted = await Favorite.deleteOne({ _id: favoriteId, userId: user._id })
+      return res.status(200).send({ message: "Favorite movie deleted successfully", deletedCound: deleted.deletedCount })
+    } catch (error) {
+      return res.status(500).send({ message: error.message })
+    }
+  }
+
+  async toggleFavoriteWatched(req, res) {
+    try {
+      const favoriteId = req.params.id;
+      const user = req.user;
+
+      const favorite = await Favorite.findById(favoriteId);
+      if (!favorite) {
+        return res.status(404).send({ message: "Favorite not found" });
+      }
+
+      const updated = await Favorite.updateOne({ _id: favoriteId, userId: user._id }, { $set: { watched: !favorite.watched } })
+      return res.status(200).send({ message: "Favorite movie status updated successfully", updated })
+    } catch (error) {
+      return res.status(500).send({ message: error.message })
     }
   }
 }

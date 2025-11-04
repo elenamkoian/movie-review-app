@@ -8,7 +8,7 @@ export const ReviewsPage = () => {
   const [reviews, setReviews] = useState<IReview[]>();
 
   useEffect(() => {
-    Axios.get("/auth/reviews")
+    Axios.get("/movies/all/reviews")
       .then((response) => {
         setReviews(response.data.reviews);
       })
