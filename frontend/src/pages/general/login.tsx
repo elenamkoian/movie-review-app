@@ -1,29 +1,28 @@
-import { useState,} from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { Axios } from "../../lib/api";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import type { ILoginUser } from "../../types";
+import { toast } from "react-toastify";
 
 export const Login = () => {
-  const { register, handleSubmit, formState: { errors }} = useForm<ILoginUser>();
-  const [error, setError] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ILoginUser>();
   const navigate = useNavigate();
 
   const handleLogin: SubmitHandler<ILoginUser> = async (data: ILoginUser) => {
-    Axios
-      .post("/auth/login", data)
-      .then(response => {
-        localStorage.setItem("token", response.data.token)
-        navigate("/")
+    Axios.post("/auth/login", data)
+      .then((response) => {
+        localStorage.setItem("token", response.data.token);
+        toast.success(response.data.message);
+        navigate("/");
       })
-      .catch(err => {
-        if (axios.isAxiosError(err)) {
-          const errorResp = err.response?.data;
-          setError(errorResp.message || "Sign up failed");
-        }
-      })
+      .catch((err) => {
+        toast.error(err.response.data.message);
+      });
   };
 
   return (
@@ -33,9 +32,7 @@ export const Login = () => {
           Login
         </h1>
 
-        {error && <p className="text-red-700">{error}</p>}
         <form onSubmit={handleSubmit(handleLogin)} className="space-y-6">
-
           {/* Login */}
           <div>
             {errors.login && (

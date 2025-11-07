@@ -10,4 +10,10 @@ userRouter.post("/logout", userController.logout);
 
 userRouter.get("/user", isAuthenticated, userController.getUser);
 
+userRouter.get("/user/favorites/all", isAuthenticated, userController.getUserFavorites)
+userRouter.get("/user/reviews/all", isAuthenticated, userController.getUserReviews)
+
+userRouter.patch("/user/resetLogin", isAuthenticated, userController.resetLogin);
+userRouter.patch("/user/resetPassword", isAuthenticated, userController.resetPassword);
+
 

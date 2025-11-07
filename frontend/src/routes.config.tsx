@@ -26,10 +26,10 @@ export const router = createBrowserRouter([
     element: <Layout />,
     children: [
       { path: "", element: <HomePage /> },
-      { path: "/movies/:category", element: <MoviesPage /> },
-      { path: "/movie/:id", element: <MovieView /> },
+      { path: "movies/:category", element: <MoviesPage /> },
+      { path: "movie/:id", element: <MovieView /> },
       { path: "profile", element: <ProfilePage /> },
-      { path: "favorites", element: <FavoritesPage /> },
+      { path: "saves", element: <FavoritesPage /> },
       { path: "search-movie", element: <SearchMoviePage /> },
       { path: "search-user", element: <SearchUserPage /> },
       { path: "reviews", element: <ReviewsPage /> },

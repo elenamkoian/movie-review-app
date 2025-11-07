@@ -8,7 +8,7 @@ export const ReviewsPage = () => {
   const [reviews, setReviews] = useState<IReview[]>();
 
   useEffect(() => {
-    Axios.get("/movies/all/reviews")
+    Axios.get("/auth/user/reviews/all")
       .then((response) => {
         setReviews(response.data.reviews);
       })
@@ -32,14 +32,19 @@ export const ReviewsPage = () => {
     Axios.patch(`/movies/review/${reviedwId}/edit`, data) // use review._id
       .then(() => {
         toast.success("Review has been updated!");
-        setReviews(reviews?.map(r => r._id === reviedwId ? { ...r, description: data.description, edited: true  } : r ))
+        setReviews(
+          reviews?.map((r) =>
+            r._id === reviedwId
+              ? { ...r, description: data.description, edited: true }
+              : r
+          )
+        );
       })
       .catch(() => toast.error("Failed to update the review"));
   };
 
   return (
-    <div className="p-6 cursor-pointer">
-      <h2 className="text-3xl font-bold mb-6 text-center">My Reviews</h2>
+    <div className="min-h-screen py-24 px-8">
       <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {reviews &&
           reviews.map((review) => (

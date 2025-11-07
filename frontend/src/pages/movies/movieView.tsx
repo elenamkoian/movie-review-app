@@ -104,6 +104,11 @@ export const MovieView = () => {
                   >
                     Write Review
                   </button>
+                  <button
+                    className="w-45 cursor-pointer rounded-lg px-4 py-2 bg-blue-800 text-white shadow-md hover:bg-blue-900 hover:scale-105 hover:shadow-lg transition transform duration-200 ease-in-out"
+                  >
+                    Show Reviews
+                  </button>
                 </div>
               </div>
 

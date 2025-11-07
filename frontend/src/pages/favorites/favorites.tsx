@@ -10,7 +10,7 @@ export const FavoritesPage = () => {
   const [filter, setFilter] = useState<"all" | "watched" | "unwatched">("all");
 
   useEffect(() => {
-    Axios.get("/movies/all/favorites")
+    Axios.get("/auth/user/favorites/all")
       .then((res) => setFavorites(res.data.favorites))
       .catch(console.error);
   }, []);
@@ -48,11 +48,7 @@ export const FavoritesPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-900 p-8">
-      <h1 className="text-4xl font-bold text-center mb-8">
-        My Favorite Movies
-      </h1>
-
+    <div className="min-h-screen py-24 px-8">
       <FavoritesFilter selectedFilter={filter} onChange={setFilter} />
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -68,7 +64,7 @@ export const FavoritesPage = () => {
         ) : (
           <div className="flex justify-center items-center col-span-full py-32">
             <p className="text-gray-800 text-3xl font-medium">
-              No Favorite movies yet
+              No Saved movies yet
             </p>
           </div>
         )}

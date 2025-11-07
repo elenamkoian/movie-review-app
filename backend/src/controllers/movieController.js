@@ -122,19 +122,6 @@ class MovieController {
     }
   }
 
-  async getUserReviews(req, res) {
-    try {
-      const user = req.user;
-
-      const reviews = await Review.find({ userId: user._id });
-
-      return res.status(200).json({ message: "Fetched reviews", reviews });
-    } catch (err) {
-      console.error(err);
-      return res.status(500).json({ message: "Failed to fetch reviews" });
-    }
-  }
-
   async createFavorite(req, res) {
     const user = req.user;
     const movieId = req.params.id;
@@ -168,22 +155,6 @@ class MovieController {
     } catch (error) {
       console.error(error);
       return res.status(500).send({ message: error.message });
-    }
-  }
-
-  async getFavorites(req, res) {
-    const user = req.user;
-    try {
-      const favorites = await Favorite.find({ userId: user._id });
-
-      if (!favorites) {
-        return res.status(404).send({ message: "Favorites not found" })
-      }
-
-      return res.status(200).send({ message: "Favorites fetched successfully", favorites })
-    } catch (error) {
-      console.error(error)
-      return res.status(500).send({ message: error.message })
     }
   }
 

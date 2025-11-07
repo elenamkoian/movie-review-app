@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import User from "../models/user.js";
+import Favorite from "../models/favorite.js"
 import Review from '../models/review.js';
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
@@ -65,6 +66,79 @@ class UserController {
       return res.status(200).send({ message: "Successfully logged out" });
     } catch (err) {
       return res.status(500).send({ message: err.message });
+    }
+  }
+
+  async getUserReviews(req, res) {
+    try {
+      const user = req.user;
+
+      const reviews = await Review.find({ userId: user._id });
+
+      return res.status(200).json({ message: "Fetched reviews", reviews });
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json({ message: "Failed to fetch reviews" });
+    }
+  }
+
+   async getUserFavorites(req, res) {
+    const user = req.user;
+    try {
+      const favorites = await Favorite.find({ userId: user._id });
+
+      if (!favorites) {
+        return res.status(404).send({ message: "Favorites not found" })
+      }
+
+      return res.status(200).send({ message: "Favorites fetched successfully", favorites })
+    } catch (error) {
+      console.error(error)
+      return res.status(500).send({ message: error.message })
+    }
+  }
+
+  async resetLogin(req, res) {
+    try {
+      const { password, newLogin } = req.body;
+      const user = req.user;
+
+      const existingUser = await User.findOne({ login: newLogin });
+      if (existingUser) {
+        return res.status(400).send({ message: "Login is busy" })
+      }
+
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) {
+        return res.status(401).send({ message: "Incorrect password" });
+      }
+
+      const updatedUser = await User.findByIdAndUpdate(user._id, { $set: { login: newLogin } })
+
+      return res.status(200).send({ message: "User login updated successfully", user: updatedUser })
+
+    } catch (error) {
+      return res.status(500).send({ message: error.message })
+    }
+  }
+
+  async resetPassword(req, res) {
+    try {
+      const { oldPassword, newPassword } = req.body;
+      const user = req.user;
+
+      const isMatch = await bcrypt.compare(oldPassword, user.password);
+      if(!isMatch) {
+        return res.status(401).send({ message: "Incorrect password" });
+      }
+
+      const hashedPassword = await bcrypt.hash(newPassword, 10)
+      const updatedUser = await User.findByIdAndUpdate(user._id, { $set: { password: hashedPassword } })
+
+      return res.status(200).send({ message: "Password updated successfully", user: updatedUser })
+
+    } catch(error) {
+      return res.status(500).send({ message: error,message })
     }
   }
 

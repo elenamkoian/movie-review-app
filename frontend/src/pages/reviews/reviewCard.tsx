@@ -24,7 +24,7 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({
           <img
             src={`https://image.tmdb.org/t/p/w300${review.movie.poster_path}`}
             alt={review.movie.title}
-            className="w-full sm:w-1/3 object-cover h-64 sm:h-auto"
+            className="w-full h-full sm:w-1/3 object-cover sm:h-auto"
           />
         )}
 
@@ -70,7 +70,7 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({
                 </div>
               </form>
             ) : (
-              <p className="text-gray-700 mb-4 leading-relaxed">
+              <p className="text-gray-700">
                 {review.description}
               </p>
             )}

@@ -13,14 +13,14 @@ export const FavoriteMovieCard: React.FC<FavoriteMovieCardProps> = ({
   onToggleWatch,
 }) => {
   return (
-    <div className="flex flex-col cursor-pointer md:flex-row items-center bg-white shadow-lg rounded-2xl overflow-hidden w-full max-w-2x hover:shadow-xl transition-transform transform hover:scale-[1.02]l">
+    <div className="flex flex-col md:flex-row items-center bg-white shadow-lg rounded-2xl overflow-hidden w-full max-w-2x hover:shadow-xl transition-transform transform hover:scale-[1.02]">
       <img
         src={`https://image.tmdb.org/t/p/w300${favorite.movie.poster_path}`}
         alt={favorite.movie.title}
         className="w-full md:w-1/3 h-64 object-cover"
       />
 
-      <div className="flex-1 p-4 flex flex-col justify-between">
+      <div className="flex-1 p-4 flex flex-col gap-2 justify-around">
         <div>
           <h2 className="text-2xl font-semibold mb-1">
             {favorite.movie.title}
@@ -37,7 +37,7 @@ export const FavoriteMovieCard: React.FC<FavoriteMovieCardProps> = ({
           </p>
         </div>
 
-        <div className="flex gap-3 mt-4">
+        <div className="flex gap-3">
           <button
             className="cursor-pointer px-4 py-2 bg-gray-700 text-white rounded-md hover:bg-gray-800 transition"
             onClick={() => onToggleWatch(favorite._id)}

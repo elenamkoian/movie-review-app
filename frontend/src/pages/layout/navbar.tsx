@@ -1,18 +1,10 @@
 import { NavLink } from "react-router-dom";
 import { useState, useRef } from "react";
-import { Axios } from "../../lib/api";
 import { Link } from "react-router-dom";
 
 export const Navbar = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-
-  const handlelogout = () => {
-    Axios.post("/auth/logout").catch((err) => {
-      console.error("Error during logout:", err);
-    });
-    localStorage.removeItem("token");
-  };
 
   const linkClasses = ({ isActive }: { isActive: boolean }) =>
     `px-3 py-2 rounded-md text-sm font-medium transition-colors cursor-pointer ${
@@ -32,7 +24,7 @@ export const Navbar = () => {
 
   return (
     <nav className="bg-gray-800 shadow-md fixed top-0 w-full z-10">
-      <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div className="max-w-6xl mx-auto px-6 py-4 flex gap-20 items-center">
         {/* Left Section - Logo */}
         <Link to="/">
           <p className="text-2xl font-semibold text-gray-200 cursor-pointer">MyReviewApp</p>
@@ -79,26 +71,20 @@ export const Navbar = () => {
             </div>
           </div>
 
-          <NavLink to="/favorites" className={linkClasses}>
-            My Favorites
+          <NavLink to="/saves" className={linkClasses}>
+            My Saves
           </NavLink>
           <NavLink to="/reviews" className={linkClasses}>
             My Reviews
+          </NavLink>
+          <NavLink to="/profile" className={linkClasses}>
+            My Profile
           </NavLink>
           <NavLink to="/search-movie" className={linkClasses}>
             Search Movie
           </NavLink>
           <NavLink to="/search-user" className={linkClasses}>
             Search User
-          </NavLink>
-          <NavLink to="/profile" className={linkClasses}>
-            Profile
-          </NavLink>
-        </div>
-
-        <div>
-          <NavLink to="/login" className={linkClasses} onClick={handlelogout}>
-            Logout
           </NavLink>
         </div>
       </div>
