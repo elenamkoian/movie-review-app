@@ -46,7 +46,7 @@ export const ReviewsPage = () => {
   return (
     <div className="min-h-screen py-24 px-8">
       <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-        {reviews &&
+        {reviews?.length ? (
           reviews.map((review) => (
             <ReviewCard
               key={review._id}
@@ -54,7 +54,14 @@ export const ReviewsPage = () => {
               onDeleteReview={handleDeleteReview}
               onEditReview={handleEditReview}
             />
-          ))}
+          ))
+        ) : (
+          <div className="flex justify-center items-center col-span-full py-32">
+            <p className="text-gray-800 text-3xl font-medium">
+              No Reviews yet
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

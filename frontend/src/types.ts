@@ -60,7 +60,13 @@ export interface IMovieDetails {
 
 export interface IReview {
   _id: number;
-  user: IUser;
+  userId: {
+    _id: string,
+    name?: string,
+    surname?: string,
+    avatar?: string,
+    login?: string
+  };
   description: string;
   movie: IMovie;
   edited?: boolean

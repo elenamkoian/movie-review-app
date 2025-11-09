@@ -4,14 +4,17 @@ import { Axios } from "../../lib/api";
 import type { IMovieDetails } from "../../types";
 import { AddReviewForm } from "./addReviewForm";
 import { toast } from "react-toastify";
+import { AllReviews } from "./allReviews";
 
 export const MovieView = () => {
   const { id } = useParams<{ id: string }>();
   const [movie, setMovie] = useState<IMovieDetails>();
   const [showReviewForm, setShowReviewForm] = useState(false);
+  const [showReviewsCard, setShowReviewsCard] = useState(false);
+  const [allReviews, setAllReviews] = useState();
 
-  // Ref to scroll to the review form
   const formRef = useRef<HTMLDivElement | null>(null);
+  const reviewsRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     Axios.get(`/movies/${id}`)
@@ -27,6 +30,26 @@ export const MovieView = () => {
     }, 100);
   };
 
+  const handleShowAllRewiewsClick = () => {
+    setShowReviewsCard(true);
+
+    Axios.get(`/movies/${id}/reviews/all`)
+      .then((response) => {
+        console.log(response);
+        setAllReviews(response.data.reviews);
+      })
+      .catch((error) => {
+        console.log(error.response.data);
+      });
+
+    setTimeout(() => {
+      reviewsRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }, 100);
+  };
+
   const handleAddToFavoriteClick = () => {
     Axios.post(`/movies/${id}/favorite`)
       .then((response) =>
@@ -39,13 +62,28 @@ export const MovieView = () => {
       });
   };
 
+  const handleCancelReview = (type: string) => {
+    if (type === "form") {
+      setShowReviewForm(false);
+    } else if (type === "card") {
+      setShowReviewsCard(false);
+    }
+
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }, 100);
+  };
+
   return (
     <div className="flex flex-col">
       {movie && (
         <div className="min-h-screen flex items-center justify-center bg-gray-50">
           <div className="bg-white max-w-5xl mx-auto shadow-lg rounded-2xl overflow-hidden flex flex-col md:flex-row">
             {/* Poster */}
-            <div className="md:w-1/3">
+            <div>
               <img
                 src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                 alt={movie?.title}
@@ -95,7 +133,7 @@ export const MovieView = () => {
                     onClick={handleAddToFavoriteClick}
                     className="w-45 cursor-pointer rounded-lg px-4 py-2 bg-blue-500 text-white shadow-md hover:bg-blue-600 hover:scale-105 hover:shadow-lg transition transform duration-200 ease-in-out"
                   >
-                    Add to Favorites
+                    Add to Saves
                   </button>
 
                   <button
@@ -105,6 +143,7 @@ export const MovieView = () => {
                     Write Review
                   </button>
                   <button
+                    onClick={handleShowAllRewiewsClick}
                     className="w-45 cursor-pointer rounded-lg px-4 py-2 bg-blue-800 text-white shadow-md hover:bg-blue-900 hover:scale-105 hover:shadow-lg transition transform duration-200 ease-in-out"
                   >
                     Show Reviews
@@ -141,7 +180,17 @@ export const MovieView = () => {
           <AddReviewForm
             movieId={movie?.id}
             title={movie?.title}
-            onCancel={() => setShowReviewForm(false)}
+            onCancel={() => handleCancelReview("form")}
+          />
+        </div>
+      )}
+
+      {/* All the reviews of app users about that specific movie */}
+      {allReviews && showReviewsCard && (
+        <div ref={reviewsRef}>
+          <AllReviews
+            allReviews={allReviews}
+            onCancel={() => handleCancelReview("card")}
           />
         </div>
       )}

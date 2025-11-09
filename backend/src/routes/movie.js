@@ -14,7 +14,9 @@ movieRouter.patch("/review/:id/edit", isAuthenticated, movieController.editRevie
 movieRouter.delete("/review/:id", isAuthenticated, movieController.deleteReview);
 
 //favorite
-movieRouter.patch("/favorite/:id/toggle", isAuthenticated, movieController.toggleFavoriteWatched)
-movieRouter.post("/:id/favorite", isAuthenticated, movieController.createFavorite)
-movieRouter.delete("/favorites/:id", isAuthenticated, movieController.removeFavorite)
+movieRouter.patch("/favorite/:id/toggle", isAuthenticated, movieController.toggleFavoriteWatched);
+movieRouter.post("/:id/favorite", isAuthenticated, movieController.createFavorite);
+movieRouter.delete("/favorites/:id", isAuthenticated, movieController.removeFavorite);
+
+movieRouter.get("/:id/reviews/all", movieController.getAllMovieReviews)
 

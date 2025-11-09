@@ -133,7 +133,7 @@ class MovieController {
       });
 
       if (existingFavorite) {
-        return res.status(400).send({ message: "Movie is already in favorites" });
+        return res.status(400).send({ message: "Movie is already in My Saves" });
       }
 
       const movieResponse = await axios.get(`https://api.themoviedb.org/3/movie/${movieId}`, {
@@ -150,7 +150,7 @@ class MovieController {
         date: Date.now()
       });
 
-      return res.status(201).send({ message: "Movie added to favorites successfully", favorite, });
+      return res.status(201).send({ message: "Movie added to saves successfully", favorite, });
 
     } catch (error) {
       console.error(error);
@@ -182,12 +182,24 @@ class MovieController {
 
       const favorite = await Favorite.findById(favoriteId);
       if (!favorite) {
-        return res.status(404).send({ message: "Favorite not found" });
+        return res.status(404).send({ message: "Saced movie not found" });
       }
 
       const updated = await Favorite.updateOne({ _id: favoriteId, userId: user._id }, { $set: { watched: !favorite.watched } })
-      return res.status(200).send({ message: "Favorite movie status updated successfully", updated })
+      return res.status(200).send({ message: "Movie status updated successfully", updated })
     } catch (error) {
+      return res.status(500).send({ message: error.message })
+    }
+  }
+
+  async getAllMovieReviews (req, res) {
+    try {
+      const { id } = req.params;
+      const reviews = await Review.find({ "movie.id": Number(id) }).populate("userId", "name surname avatar")
+
+      return res.status(200).send({ message: "Fetched all the reviews for the movie", reviews })
+
+    } catch(error) {
       return res.status(500).send({ message: error.message })
     }
   }
