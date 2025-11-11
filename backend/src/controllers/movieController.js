@@ -192,15 +192,47 @@ class MovieController {
     }
   }
 
-  async getAllMovieReviews (req, res) {
+  async getAllMovieReviews(req, res) {
     try {
       const { id } = req.params;
       const reviews = await Review.find({ "movie.id": Number(id) }).populate("userId", "name surname avatar")
 
       return res.status(200).send({ message: "Fetched all the reviews for the movie", reviews })
 
-    } catch(error) {
+    } catch (error) {
       return res.status(500).send({ message: error.message })
+    }
+  }
+
+  async searchMovie(req, res) {
+    try {
+      const { searchText } = req.params;
+      const response = await axios.get(`https://api.themoviedb.org/3/search/movie`, {
+        params: {
+          api_key: API_KEY,
+          query: searchText,
+          language: "en-US",
+        },
+      });
+
+      if (!response.data.results || response.data.results.length === 0) {
+        return res.status(404).send({ message: "No movies found." });
+      }
+
+      // const movies = response.data.results.map((movie) => ({
+      //   id: movie.id,
+      //   title: movie.title,
+      //   year: movie.release_date ? movie.release_date.split("-")[0] : "unknown",
+      //   poster: movie.poster_path
+      //     ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+      //     : null,
+      //   overview: movie.overview,
+      // }));
+
+      return res.status(200).send({ message: "Movies fetched successfully", movies: response.data.results });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).send({ message: error.message });
     }
   }
 }

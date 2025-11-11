@@ -19,4 +19,5 @@ movieRouter.post("/:id/favorite", isAuthenticated, movieController.createFavorit
 movieRouter.delete("/favorites/:id", isAuthenticated, movieController.removeFavorite);
 
 movieRouter.get("/:id/reviews/all", movieController.getAllMovieReviews)
+movieRouter.get("/search/:searchText", movieController.searchMovie)
 

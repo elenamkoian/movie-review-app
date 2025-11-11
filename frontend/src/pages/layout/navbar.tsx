@@ -77,14 +77,14 @@ export const Navbar = () => {
           <NavLink to="/reviews" className={linkClasses}>
             My Reviews
           </NavLink>
-          <NavLink to="/profile" className={linkClasses}>
-            My Profile
-          </NavLink>
           <NavLink to="/search-movie" className={linkClasses}>
             Search Movie
           </NavLink>
           <NavLink to="/search-user" className={linkClasses}>
             Search User
+          </NavLink>
+          <NavLink to="/profile" className={linkClasses}>
+            My Profile
           </NavLink>
         </div>
       </div>

@@ -5,6 +5,7 @@ import type { IMovieDetails } from "../../types";
 import { AddReviewForm } from "./addReviewForm";
 import { toast } from "react-toastify";
 import { AllReviews } from "./allReviews";
+import fallbackImage from "../../assets/image-not-found.png";
 
 export const MovieView = () => {
   const { id } = useParams<{ id: string }>();
@@ -85,7 +86,9 @@ export const MovieView = () => {
             {/* Poster */}
             <div>
               <img
-                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                // src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : fallbackImage}
+
                 alt={movie?.title}
                 className="object-cover w-full h-full"
               />

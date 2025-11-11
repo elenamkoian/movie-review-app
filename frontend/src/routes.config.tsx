@@ -5,7 +5,7 @@ import { HomePage } from "./pages/home/home";
 import { Layout } from "./pages/layout/layout";
 import { FavoritesPage } from "./pages/favorites/favorites";
 import { ProfilePage } from "./pages/profile/profile";
-import { SearchMoviePage } from "./pages/search-movie/search-movie";
+import { SearchMoviePage } from "./pages/search-movie/searchMovie";
 import { SearchUserPage } from "./pages/search-user/search-user";
 import { MoviesPage } from "./pages/movies/movies";
 import { MovieView } from "./pages/movies/movieView";

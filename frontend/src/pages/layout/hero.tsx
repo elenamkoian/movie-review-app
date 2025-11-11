@@ -33,7 +33,7 @@ export const HeroSection = () => {
           </Link>
           <Link to="/reviews">
             <button className="bg-transparent border cursor-pointer border-white px-6 py-3 rounded-xl hover:bg-white hover:text-gray-900 hover:scale-110 duration-400 transition">
-              Browse Reviews
+              Browse My Reviews
             </button>
           </Link>
 

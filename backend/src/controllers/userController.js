@@ -77,7 +77,6 @@ class UserController {
 
       return res.status(200).json({ message: "Fetched reviews", reviews });
     } catch (err) {
-      console.error(err);
       return res.status(500).json({ message: "Failed to fetch reviews" });
     }
   }
@@ -93,7 +92,6 @@ class UserController {
 
       return res.status(200).send({ message: "Favorites fetched successfully", favorites })
     } catch (error) {
-      console.error(error)
       return res.status(500).send({ message: error.message })
     }
   }

@@ -12,7 +12,6 @@ export const isAuthenticated = (req, res, next) => {
   const [, token] = authHeader.split(" ");
 
   jwt.verify(token,process.env.JWT_SECRET, (err, data) => {
-    console.log(data.user)
     if(err) {
       return res.status(401).send({ message: "Invalid token" });
     }

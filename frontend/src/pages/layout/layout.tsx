@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import type { IUser } from "../../types";
 import { Axios } from "../../lib/api";
-import { Navbar} from "../layout/navbar"
+import { Navbar } from "../layout/navbar";
 import { ToastContainer } from "react-toastify";
 
 export const Layout = () => {
@@ -49,5 +49,5 @@ export const Layout = () => {
         </p>
       </footer>
     </div>
-    )
+  );
 };
