@@ -27,7 +27,7 @@ export const Navbar = () => {
       <div className="max-w-6xl mx-auto px-6 py-4 flex gap-20 items-center">
         {/* Left Section - Logo */}
         <Link to="/">
-          <p className="text-2xl font-semibold text-gray-200 cursor-pointer">MyReviewApp</p>
+          <p className="text-2xl font-semibold text-gray-200 cursor-pointer">MovieReviewApp</p>
         </Link>
 
         {/* Middle Section - Links */}

@@ -219,16 +219,6 @@ class MovieController {
         return res.status(404).send({ message: "No movies found." });
       }
 
-      // const movies = response.data.results.map((movie) => ({
-      //   id: movie.id,
-      //   title: movie.title,
-      //   year: movie.release_date ? movie.release_date.split("-")[0] : "unknown",
-      //   poster: movie.poster_path
-      //     ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-      //     : null,
-      //   overview: movie.overview,
-      // }));
-
       return res.status(200).send({ message: "Movies fetched successfully", movies: response.data.results });
     } catch (error) {
       console.error(error);

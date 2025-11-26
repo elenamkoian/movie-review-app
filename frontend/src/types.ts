@@ -1,9 +1,10 @@
 export interface IUser {
+  _id: string | number;
   name: string;
   surname: string;
   login: string;
   password: string;
-  avatar?: File;
+  avatar?: File | string;
 }
 
 export type ILoginUser = Pick<IUser, "login" | "password">;

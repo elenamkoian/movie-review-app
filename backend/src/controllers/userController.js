@@ -30,6 +30,7 @@ class UserController {
       if (!login.trim() || !password.trim()) {
         return res.status(400).send({ message: "Missing credentials" })
       }
+
       const foundUser = await User.findOne({ login });
       if (!foundUser) {
         return res.status(404).send({ message: "User not found" })
@@ -40,7 +41,7 @@ class UserController {
         return res.status(400).send({ message: "Invalid Credentials" })
       }
 
-      const token = jwt.sign({ user: foundUser }, process.env.JWT_SECRET, { expiresIn: "7d" })
+      const token = jwt.sign({ user: foundUser }, process.env.JWT_SECRET, { expiresIn: "1h" })
       return res.status(200).send({ message: "Successful log in", token })
     } catch (err) {
       return res.status(500).send({ message: err.message })
@@ -81,7 +82,7 @@ class UserController {
     }
   }
 
-   async getUserFavorites(req, res) {
+  async getUserFavorites(req, res) {
     const user = req.user;
     try {
       const favorites = await Favorite.find({ userId: user._id });
@@ -126,7 +127,7 @@ class UserController {
       const user = req.user;
 
       const isMatch = await bcrypt.compare(oldPassword, user.password);
-      if(!isMatch) {
+      if (!isMatch) {
         return res.status(401).send({ message: "Incorrect password" });
       }
 
@@ -135,11 +136,28 @@ class UserController {
 
       return res.status(200).send({ message: "Password updated successfully", user: updatedUser })
 
-    } catch(error) {
-      return res.status(500).send({ message: error,message })
+    } catch (error) {
+      return res.status(500).send({ message: error.message })
     }
   }
 
+  async getSearchUser(req, res) {
+    const { user } = req;
+    try {
+      const { searchText } = req.params;
+      const users = await User.find({
+        _id: { $ne: user._id},
+        $or: [
+          { name: { $regex: searchText, $options: "i" } },
+          { surname: { $regex: searchText, $options: "i" } }
+        ]
+      });
+
+      return res.status(200).send({ meassage: "Users fetched successfully", users })
+    } catch (error) {
+      return res.status(500).send({ message: error.message })
+    }
+  }
 }
 
 export default new UserController();

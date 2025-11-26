@@ -57,7 +57,7 @@ export const MovieView = () => {
         toast.success(response.data.message || "Added to the favorites")
       )
       .catch((error) => {
-        toast.error(
+        toast.info(
           error.response.data.message || "Failed to add to favorites"
         );
       });
@@ -143,7 +143,7 @@ export const MovieView = () => {
                     className="w-45 cursor-pointer rounded-lg px-4 py-2 bg-gray-700 text-white shadow-md hover:bg-gray-800 hover:scale-105 hover:shadow-lg transition transform duration-200 ease-in-out"
                     onClick={handleWriteReviewClick}
                   >
-                    Write Review
+                    Write a Review
                   </button>
                   <button
                     onClick={handleShowAllRewiewsClick}

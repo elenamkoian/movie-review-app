@@ -1,11 +1,11 @@
-import { useState } from "react";
+// import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import type { IUser } from "../../types";
 import type { SubmitHandler } from "react-hook-form";
 import { Axios } from "../../lib/api";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export const SignUp = () => {
   const navigate = useNavigate();
@@ -16,20 +16,21 @@ export const SignUp = () => {
     formState: { errors },
     reset,
   } = useForm<IUser>();
-  const [error, setError] = useState("");
+  // const [error, setError] = useState("");
 
   const handleSignup: SubmitHandler<IUser> = async (data: IUser) => {
     Axios.post("/auth/signup", data)
       .then((response) => {
-        console.log(response)
         navigate("/login");
         reset()
+        toast.success(response.data.message)
       })
       .catch((err) => {
-        if (axios.isAxiosError(err)) {
-          const errorResp = err.response?.data;
-          setError(errorResp.message || "Sign up failed");
-        }
+        // if (axios.isAxiosError(err)) {
+        //   const errorResp = err.response?.data;
+        //   setError(errorResp.message || "Sign up failed");
+        // }
+        toast.error(err.response.data.message);
       });
   };
 
@@ -40,7 +41,7 @@ export const SignUp = () => {
           SignUp
         </h1>
 
-        {error && <p className="text-red-700">{error}</p>}
+        {/* {error && <p className="text-red-700">{error}</p>} */}
 
         <form onSubmit={handleSubmit(handleSignup)} className="space-y-6">
           {/* Name */}

@@ -58,8 +58,47 @@ export const SearchMoviePage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900 flex items-center justify-center py-24 px-8">
-      <div className="grid grid-cols-[300px_1fr] gap-8 w-full max-w-6xl">
-        {/* Filter Card */}
+      <div className="grid grid-cols-[1fr_300px] gap-8 w-full max-w-6xl">
+        {/* Search Card FIRST */}
+        <div className="bg-white rounded-2xl shadow-md p-6 border border-gray-100 flex flex-col">
+          <h2 className="text-xl font-semibold mb-4">Search Movies</h2>
+
+          {/* Input */}
+          <div className="flex gap-3 mb-6">
+            <input
+              type="text"
+              placeholder="Search for a movie..."
+              value={searchText}
+              onChange={(ev) => setSearchText(ev.target.value)}
+              className="flex-1 border border-gray-200 rounded-lg px-4 py-2 text-gray-700"
+            />
+            <button
+              onClick={handleSearch}
+              className="bg-gray-800 cursor-pointer text-white px-5 py-2 rounded-lg hover:bg-gray-600 transition"
+            >
+              Search
+            </button>
+          </div>
+
+          {/* Search Results */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 overflow-y-auto">
+            {moviesToShow.length ? (
+              moviesToShow.map((movie) => (
+                <Link key={movie.id} to={`/movie/${movie.id}`}>
+                  <SearchedMovieItem movie={movie} />
+                </Link>
+              ))
+            ) : (
+              <p className="text-gray-500 text-center col-span-full">
+                {searchText
+                  ? "No movies found."
+                  : "Search for a movie to begin."}
+              </p>
+            )}
+          </div>
+        </div>
+
+        {/* Filter Card SECOND */}
         <div className="bg-white rounded-2xl shadow-md p-6 h-80 border border-gray-100">
           <h2 className="text-xl font-semibold mb-4">Filters</h2>
           <div className="space-y-4">
@@ -90,7 +129,7 @@ export const SearchMoviePage = () => {
               <label className="block text-sm text-gray-700 mb-1">Year</label>
               <input
                 value={year}
-                onChange={(e) => handleYearSelect(e)}
+                onChange={handleYearSelect}
                 type="number"
                 placeholder="e.g. 2020"
                 max={new Date().getFullYear()}
@@ -104,48 +143,6 @@ export const SearchMoviePage = () => {
             >
               Apply Filters
             </button>
-          </div>
-        </div>
-
-        {/* Search Card */}
-        <div className="bg-white rounded-2xl shadow-md p-6 border border-gray-100 flex flex-col">
-          <h2 className="text-xl font-semibold mb-4">Search Movies</h2>
-
-          {/* Input */}
-          <div className="flex gap-3 mb-6">
-            <input
-              type="text"
-              placeholder="Search for a movie..."
-              value={searchText}
-              onChange={(ev) => setSearchText(ev.target.value)}
-              className="flex-1 border border-gray-200 rounded-lg px-4 py-2 text-gray-700"
-            />
-            <button
-              onClick={handleSearch}
-              className="bg-gray-800 cursor-pointer text-white px-5 py-2 rounded-lg hover:bg-gray-600 transition"
-            >
-              Search
-            </button>
-          </div>
-
-          {/* Search Results */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 overflow-y-auto">
-            {moviesToShow.length ? (
-              moviesToShow.map((movie) => (
-                <Link
-                  key={movie.id}
-                  to={`/movie/${movie.id}`}
-                >
-                  <SearchedMovieItem movie={movie} />
-                </Link>
-              ))
-            ) : (
-              <p className="text-gray-500 text-center col-span-full">
-                {searchText
-                  ? "No movies found."
-                  : "Search for a movie to begin."}
-              </p>
-            )}
           </div>
         </div>
       </div>

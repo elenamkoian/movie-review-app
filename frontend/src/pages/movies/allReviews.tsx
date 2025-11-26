@@ -51,10 +51,10 @@ export const AllReviews: React.FC<AllReviewsProps> = ({
 
         <div className="flex justify-end">
           <button
-            className="cursor-pointer px-4 py-2 bg-gray-700 text-white rounded-md hover:bg-gray-400 transition"
+            className="cursor-pointer px-4 py-2 bg-gray-800 text-white rounded-md hover:bg-gray-400 transition"
             onClick={onCancel}
           >
-            Cancel
+            Hide Reviews
           </button>
         </div>
       </div>

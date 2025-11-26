@@ -5,11 +5,19 @@ import type { IMovie } from "../../types";
 import { HeroSection } from "../layout/hero";
 import { ScrollableMovieSection } from "../../components/scrollableMovieSection/scrollablemovieSection";
 import { MovieSection } from "../../components/movieSection/movieSection";
+import { useNavigate } from "react-router-dom";
 
 export const HomePage = () => {
   const [movies, setMovies] = useState<IMovie[]>([]);
   const [upcomingMovies, setUpcomingMovies] = useState<IMovie[]>([]);
   const [error, setError] = useState("");
+  const navigate = useNavigate()
+
+  const token = localStorage.getItem("token");
+
+  if(!token) {
+    navigate("/login")
+  }
 
   useEffect(() => {
     Axios.get("/movies")

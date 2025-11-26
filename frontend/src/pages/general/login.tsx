@@ -4,6 +4,7 @@ import { Axios } from "../../lib/api";
 import { useNavigate } from "react-router-dom";
 import type { ILoginUser } from "../../types";
 import { toast } from "react-toastify";
+// import axios from "axios";
 
 export const Login = () => {
   const {
@@ -21,7 +22,7 @@ export const Login = () => {
         navigate("/");
       })
       .catch((err) => {
-        toast.error(err.response.data.message);
+        toast.error(err.response?.data.message || "Login failed");
       });
   };
 
