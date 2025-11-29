@@ -169,7 +169,7 @@ class MovieController {
       }
 
       const deleted = await Favorite.deleteOne({ _id: favoriteId, userId: user._id })
-      return res.status(200).send({ message: "Favorite movie deleted successfully", deletedCound: deleted.deletedCount })
+      return res.status(200).send({ message: "Saved movie deleted successfully", deletedCound: deleted.deletedCount })
     } catch (error) {
       return res.status(500).send({ message: error.message })
     }
@@ -182,7 +182,7 @@ class MovieController {
 
       const favorite = await Favorite.findById(favoriteId);
       if (!favorite) {
-        return res.status(404).send({ message: "Saced movie not found" });
+        return res.status(404).send({ message: "Saved movie not found" });
       }
 
       const updated = await Favorite.updateOne({ _id: favoriteId, userId: user._id }, { $set: { watched: !favorite.watched } })

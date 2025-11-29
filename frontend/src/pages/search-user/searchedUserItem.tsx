@@ -3,7 +3,6 @@ import type { IUser } from "../../types";
 export const SearchedUserItem = ({ user }: { user: IUser }) => {
   return (
     <div className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm hover:shadow-md transition cursor-pointer">
-      {/* Avatar */}
       <div className="flex justify-center mb-3">
         <div className="w-16 h-16 rounded-full bg-gray-200 overflow-hidden">
           {user.avatar ? (
@@ -20,7 +19,6 @@ export const SearchedUserItem = ({ user }: { user: IUser }) => {
         </div>
       </div>
 
-      {/* Info */}
       <div className="text-center">
         <p className="font-semibold text-gray-800">
           {user.name} {user.surname}

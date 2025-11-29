@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import type { IReview } from "../../types";
 import { useState } from "react";
+import { ConfirmationModal } from "../../helpers/ConfirmationModal";
 
 interface ReviewCardProps {
   review: IReview;
@@ -15,11 +16,11 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({
 }) => {
   const { register, handleSubmit } = useForm<{ description: string }>();
   const [isEditMode, setEditMode] = useState(false);
+  const [showModal, setShowModal] = useState(false)
 
   return (
     <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-transform transform hover:scale-[1.02]">
       <div className="flex flex-col sm:flex-row">
-        {/* 🎬 Movie Poster */}
         {review.movie?.poster_path && (
           <img
             src={`https://image.tmdb.org/t/p/w300${review.movie.poster_path}`}
@@ -28,7 +29,6 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({
           />
         )}
 
-        {/* 📝 Review Content */}
         <div className="p-5 flex flex-col justify-between flex-1">
           <div>
             <div className="flex justify-between items-center mb-2">
@@ -85,13 +85,24 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({
                 Edit
               </button>
               <button
-                onClick={() => onDeleteReview(review._id)}
+                onClick={() => setShowModal(true)}
                 className="cursor-pointer flex-1 px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
               >
                 Delete
               </button>
             </div>
           )}
+
+          {
+            showModal && (
+              <ConfirmationModal
+                isReviewCard
+                text={review.movie?.title}
+                onConfirm={() => onDeleteReview(review._id)}
+                onClose={() => setShowModal(false)}
+              />
+            )
+          }
         </div>
       </div>
     </div>

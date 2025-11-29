@@ -1,5 +1,7 @@
+import { useState } from "react";
 import type { IFavoriteMovie } from "../../types";
 import { format } from "date-fns";
+import { ConfirmationModal } from "../../helpers/ConfirmationModal";
 
 interface FavoriteMovieCardProps {
   favorite: IFavoriteMovie;
@@ -12,6 +14,8 @@ export const FavoriteMovieCard: React.FC<FavoriteMovieCardProps> = ({
   onDeleteFavorite,
   onToggleWatch,
 }) => {
+  const [showModal, setShowModal] = useState(false)
+
   return (
     <div className="flex flex-col md:flex-row items-center bg-white shadow-lg rounded-2xl overflow-hidden w-full max-w-2x hover:shadow-xl transition-transform transform hover:scale-[1.02]">
       <img
@@ -45,13 +49,21 @@ export const FavoriteMovieCard: React.FC<FavoriteMovieCardProps> = ({
             {favorite.watched ? "Mark Unwatched" : "Mark Watched"}
           </button>
           <button
-            onClick={() => onDeleteFavorite(favorite._id)}
+            onClick={() => setShowModal(true)}
             className="cursor-pointer px-2 py-2 bg-gray-300 rounded-md hover:bg-gray-400 transition"
           >
             Remove
           </button>
         </div>
       </div>
+
+      {showModal && (
+        <ConfirmationModal
+          text={favorite.movie.title}
+          onConfirm={() => onDeleteFavorite(favorite._id)}
+          onClose={() => setShowModal(false)}
+        />
+      )}
     </div>
   );
 };

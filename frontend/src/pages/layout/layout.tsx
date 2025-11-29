@@ -21,15 +21,12 @@ export const Layout = () => {
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
-      {/* Navbar */}
       <Navbar />
 
-      {/* Page content */}
       <main className="w-full h-full">
         <Outlet context={{ profile }} />
       </main>
 
-      {/* Footer */}
       <footer className="flex justify-center bg-gray-800 text-gray-300 py-6 mt-auto">
         <p className="text-sm font-medium">
           © {new Date().getFullYear()} Movie Review App.

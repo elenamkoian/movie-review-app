@@ -11,7 +11,7 @@ export const AllReviews: React.FC<AllReviewsProps> = ({
 }) => {
   return (
     <div className="flex justify-center pb-20">
-      <div className="flex flex-col gap-3 max-w-5xl w-full p-6 rounded-2xl shadow-md transition-all duration-300 ease-in-out border border-gray-100">
+      <div className="flex flex-col gap-3 max-w-5xl w-full p-6 rounded-2xl shadow-lg transition-all duration-300 ease-in-out border border-gray-100">
         <h2 className="text-2xl font-bold text-gray-800 ">
           All Reviews{" "}
           {allReviews.length ? 'about "' + allReviews[0].movie.title + '"' : ""}

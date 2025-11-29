@@ -70,11 +70,12 @@ class UserController {
     }
   }
 
+  //for both logged in user and searched user
   async getUserReviews(req, res) {
     try {
-      const user = req.user;
+      const userId = req.params.id || req.user?._id;
 
-      const reviews = await Review.find({ userId: user._id });
+      const reviews = await Review.find({ userId });
 
       return res.status(200).json({ message: "Fetched reviews", reviews });
     } catch (err) {
@@ -82,10 +83,11 @@ class UserController {
     }
   }
 
+  //for both logged in user and searched user
   async getUserFavorites(req, res) {
-    const user = req.user;
     try {
-      const favorites = await Favorite.find({ userId: user._id });
+      const userId = req.params.id || req.user?._id;
+      const favorites = await Favorite.find({ userId });
 
       if (!favorites) {
         return res.status(404).send({ message: "Favorites not found" })
@@ -156,6 +158,21 @@ class UserController {
       return res.status(200).send({ meassage: "Users fetched successfully", users })
     } catch (error) {
       return res.status(500).send({ message: error.message })
+    }
+  }
+
+  async getUserById(req, res) {
+    try {
+      const { id } = req.params
+      console.log(id);
+
+      let user = await User.findById({_id: id})
+      console.log(user)
+
+      return res.status(200).send({ message: "User fetched successfully", user })
+
+    } catch(error) {
+       return res.status(400).send({ message: "The user is not found"})
     }
   }
 }

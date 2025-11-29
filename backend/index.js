@@ -28,4 +28,3 @@ app.listen(env.PORT, async () => {
 process.on('SIGINT', () => disconnectDb())
 process.on('SIGTERM', () => disconnectDb())
 
-

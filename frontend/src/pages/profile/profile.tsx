@@ -10,7 +10,7 @@ export const ProfilePage = () => {
   const [profile, setProfile] = useState<IUser>();
   const [reviews, setReviews] = useState<IReview[]>();
   const [favorites, setFavorites] = useState<IFavoriteMovie[]>([]);
-  const [showSettings, setShowSettings] = useState(false); // toggle state
+  const [showSettings, setShowSettings] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -60,16 +60,16 @@ export const ProfilePage = () => {
               {profile.name} {profile.surname}
             </h1>
 
-            {/* Buttons */}
             <div className="flex gap-3 mt-5">
               <button
-                className="flex-1 bg-gray-700 hover:bg-gray-600 text-white py-2 rounded-md text-center text-sm transition shadow-md cursor-pointer"
+                className="bg-gray-800 flex-1 cursor-pointer text-white py-2 rounded-lg hover:bg-gray-600 transition"
+
               >
                 Upload Avatar
               </button>
               <button
                 onClick={handleLogout}
-                className="flex-1 bg-gray-300 cursor-pointer hover:bg-gray-400 text-black py-2 rounded-md text-sm transition shadow-md"
+                className="bg-gray-300 flex-1 cursor-pointer text-black py-2 rounded-lg hover:bg-gray-400 transition"
               >
                 Log Out
               </button>
@@ -77,7 +77,6 @@ export const ProfilePage = () => {
           </div>
         </div>
 
-        {/* Statistics */}
         <div className="mt-10 bg-gray-50 rounded-2xl py-6 px-4 shadow-inner">
           <h2 className="text-lg font-semibold text-gray-800 mb-4">
             Your Statistics
@@ -106,7 +105,6 @@ export const ProfilePage = () => {
           </div>
         </div>
 
-        {/* Settings Toggle */}
         <div className="w-full bg-gray-50 py-6 mt-8 px-4 rounded-2xl shadow-inner cursor-pointer">
           <button
             onClick={() => setShowSettings(!showSettings)}

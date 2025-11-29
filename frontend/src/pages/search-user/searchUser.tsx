@@ -26,11 +26,9 @@ export const SearchUserPage = () => {
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900 flex items-center justify-center py-24 px-8">
       <div className="w-6xl">
-        {/* Search Card */}
         <div className="bg-white rounded-2xl shadow-md p-6 h-80 border border-gray-100 flex flex-col">
           <h2 className="text-xl font-semibold mb-4">Search Users</h2>
 
-          {/* Input */}
           <div className="flex gap-3 mb-6">
             <input
               type="text"
@@ -47,7 +45,6 @@ export const SearchUserPage = () => {
             </button>
           </div>
 
-          {/* Results */}
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 overflow-y-auto">
             {searchedUsers.length ? (
               searchedUsers.map((user) => (

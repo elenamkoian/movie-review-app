@@ -2,10 +2,9 @@ import { useState } from "react";
 import type { IMovie } from "../../types";
 import { Axios } from "../../lib/api";
 import { toast } from "react-toastify";
-import { SearchedMovieItem } from "./searchMovieItem";
 import { getMovieYear } from "../../utils/getMovieYear";
 import { getGenreIdByName } from "../../utils/getGenreIdByName";
-import { Link } from "react-router-dom";
+import { MovieCard } from "../../components/movieSection/movieCard";
 
 export const SearchMoviePage = () => {
   const [searchText, setSearchText] = useState("");
@@ -59,11 +58,9 @@ export const SearchMoviePage = () => {
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900 flex items-center justify-center py-24 px-8">
       <div className="grid grid-cols-[1fr_300px] gap-8 w-full max-w-6xl">
-        {/* Search Card FIRST */}
         <div className="bg-white rounded-2xl shadow-md p-6 border border-gray-100 flex flex-col">
           <h2 className="text-xl font-semibold mb-4">Search Movies</h2>
 
-          {/* Input */}
           <div className="flex gap-3 mb-6">
             <input
               type="text"
@@ -80,13 +77,10 @@ export const SearchMoviePage = () => {
             </button>
           </div>
 
-          {/* Search Results */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 overflow-y-auto">
+          <div className="grid grid-cols-3 gap-4 overflow-y-auto px-2 pt-3 pb-5">
             {moviesToShow.length ? (
               moviesToShow.map((movie) => (
-                <Link key={movie.id} to={`/movie/${movie.id}`}>
-                  <SearchedMovieItem movie={movie} />
-                </Link>
+                <MovieCard key={movie.id} movie={movie} />
               ))
             ) : (
               <p className="text-gray-500 text-center col-span-full">
@@ -98,7 +92,6 @@ export const SearchMoviePage = () => {
           </div>
         </div>
 
-        {/* Filter Card SECOND */}
         <div className="bg-white rounded-2xl shadow-md p-6 h-80 border border-gray-100">
           <h2 className="text-xl font-semibold mb-4">Filters</h2>
           <div className="space-y-4">
