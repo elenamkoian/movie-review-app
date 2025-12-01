@@ -62,6 +62,20 @@ class UserController {
     }
   }
 
+  async uploadAvatar(req, res) {
+    try {
+      const id = req.user._id;
+      const user = await User.findById(id);
+
+      user.avatar = req.file.filename;
+      await user.save();
+
+      return res.status(200).send({ message: "Avatar uploaded successfully", avatar: req.file.filename } );
+    } catch (error) {
+      return res.status(500).send({ message: error.message });
+    }
+  }
+
   async logout(req, res) {
     try {
       return res.status(200).send({ message: "Successfully logged out" });

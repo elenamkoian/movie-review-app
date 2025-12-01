@@ -4,13 +4,16 @@ import { env } from './src/config/env.js';
 import { connectDb, disconnectDb } from './src/config/db.js';
 import cors from "cors"
 import { movieRouter } from "./src/routes/movie.js";
+import e from "express";
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded());
+// app.use(express.static('public/uploads'));
+app.use('/uploads', express.static('public/uploads'));
 
-//should be cors first than the routers info
+
 app.use(cors({
   credentials:true,
   origin:["http://localhost:5173", "http://localhost:5174"]
@@ -27,4 +30,3 @@ app.listen(env.PORT, async () => {
 
 process.on('SIGINT', () => disconnectDb())
 process.on('SIGTERM', () => disconnectDb())
-

@@ -1,4 +1,3 @@
-// import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import type { IUser } from "../../types";
@@ -16,7 +15,6 @@ export const SignUp = () => {
     formState: { errors },
     reset,
   } = useForm<IUser>();
-  // const [error, setError] = useState("");
 
   const handleSignup: SubmitHandler<IUser> = async (data: IUser) => {
     Axios.post("/auth/signup", data)
@@ -26,10 +24,6 @@ export const SignUp = () => {
         toast.success(response.data.message)
       })
       .catch((err) => {
-        // if (axios.isAxiosError(err)) {
-        //   const errorResp = err.response?.data;
-        //   setError(errorResp.message || "Sign up failed");
-        // }
         toast.error(err.response.data.message);
       });
   };
@@ -41,10 +35,7 @@ export const SignUp = () => {
           SignUp
         </h1>
 
-        {/* {error && <p className="text-red-700">{error}</p>} */}
-
         <form onSubmit={handleSubmit(handleSignup)} className="space-y-6">
-          {/* Name */}
           <div>
             {errors.name && (
               <p className="text-red-700">{errors.name.message}</p>
@@ -55,12 +46,11 @@ export const SignUp = () => {
             <input
               {...register("name", { required: "Please enter your name" })}
               type="text"
-              placeholder="Enter your login"
+              placeholder="Enter your name"
               className="w-full px-5 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-transparent transition"
             />
           </div>
 
-          {/* Surname */}
           <div>
             {errors.surname && (
               <p className="text-red-700">{errors.surname.message}</p>
@@ -73,12 +63,11 @@ export const SignUp = () => {
                 required: "Please enter your surname",
               })}
               type="text"
-              placeholder="Enter your login"
+              placeholder="Enter your surname"
               className="w-full px-5 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-transparent transition"
             />
           </div>
 
-          {/* Login */}
           <div>
             {errors.login && (
               <p className="text-red-700">{errors.login.message}</p>
@@ -94,7 +83,6 @@ export const SignUp = () => {
             />
           </div>
 
-          {/* Password */}
           <div>
             {errors.password && (
               <p className="text-red-700">{errors.password.message}</p>
@@ -116,7 +104,6 @@ export const SignUp = () => {
             />
           </div>
 
-          {/* Submit Button */}
           <button
             type="submit"
             className="w-full cursor-pointer bg-gray-800 text-white py-3 rounded-xl font-semibold hover:bg-gray-900 transition shadow-md"
@@ -125,7 +112,6 @@ export const SignUp = () => {
           </button>
         </form>
 
-        {/* Login Link */}
         <p className="text-center text-sm text-gray-500 mt-6">
           Already have an account?{" "}
           <Link

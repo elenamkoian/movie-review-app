@@ -5,12 +5,14 @@ import { useNavigate } from "react-router-dom";
 import { ResetLogin } from "./resetLogin";
 import { ResetPassword } from "./resetPassword";
 import { toast } from "react-toastify";
+import { ImageUploader } from "../../helpers/imageUploader";
 
 export const ProfilePage = () => {
   const [profile, setProfile] = useState<IUser>();
   const [reviews, setReviews] = useState<IReview[]>();
   const [favorites, setFavorites] = useState<IFavoriteMovie[]>([]);
   const [showSettings, setShowSettings] = useState(false);
+  const [showUplader, setShowUploader] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -39,6 +41,32 @@ export const ProfilePage = () => {
       );
   };
 
+  console.log(profile);
+
+  const handleUploadAvatar = async (file: File) => {
+    try {
+      const formData = new FormData();
+      formData.append("avatar", file);
+
+      const res = await Axios.post("/auth/user/avatar", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      toast.success(res.data.message);
+
+      const filename = res.data.avatar;
+      const fullUrl = `${import.meta.env.VITE_API_URL}/uploads/${filename}`;
+
+      setProfile(profile ? { ...profile, avatar: fullUrl } : profile);
+      setShowUploader(false);
+    } catch (err) {
+      toast.error("Failed to upload avatar");
+      console.error(err);
+    }
+  };
+
   const watchedMovies = favorites.filter((fav) => fav.watched);
 
   if (!profile)
@@ -51,7 +79,13 @@ export const ProfilePage = () => {
       <div className="bg-white w-full h-full max-w-2xl mt-20 rounded-3xl shadow-xl p-6">
         <div className="flex items-center gap-6">
           <img
-            src="../src/assets/avatar.png"
+            src={
+              profile.avatar
+                ? profile.avatar.startsWith("http")
+                  ? profile.avatar
+                  : `${import.meta.env.VITE_API_URL}/uploads/${profile.avatar}`
+                : "../src/assets/avatar.png"
+            }
             className="w-28 h-28 rounded-full object-cover border border-gray-300 shadow-sm"
           />
 
@@ -62,8 +96,8 @@ export const ProfilePage = () => {
 
             <div className="flex gap-3 mt-5">
               <button
+                onClick={() => setShowUploader(true)}
                 className="bg-gray-800 flex-1 cursor-pointer text-white py-2 rounded-lg hover:bg-gray-600 transition"
-
               >
                 Upload Avatar
               </button>
@@ -74,6 +108,15 @@ export const ProfilePage = () => {
                 Log Out
               </button>
             </div>
+
+            {showUplader && (
+              <div className="mt-6">
+                <ImageUploader
+                  onClose={() => setShowUploader(false)}
+                  onUpload={handleUploadAvatar}
+                />
+              </div>
+            )}
           </div>
         </div>
 

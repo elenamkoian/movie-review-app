@@ -25,11 +25,7 @@ export const AllReviews: React.FC<AllReviewsProps> = ({
             >
               <div className="flex items-center gap-4 mb-3">
                 <img
-                  src={
-                    review.userId?.avatar
-                      ? review.userId.avatar
-                      : "/src/assets/avatar.png"
-                  }
+                  src={review.userId?.avatar ? `${import.meta.env.VITE_API_URL}/uploads/${review.userId?.avatar}` : "/src/assets/avatar.png"}
                   alt="User avatar"
                   className="w-12 h-12 rounded-full object-cover border border-gray-200"
                 />

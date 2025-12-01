@@ -7,7 +7,7 @@ export const SearchedUserItem = ({ user }: { user: IUser }) => {
         <div className="w-16 h-16 rounded-full bg-gray-200 overflow-hidden">
           {user.avatar ? (
             <img
-              // src={user.avatar}
+              src={`${import.meta.env.VITE_API_URL}/uploads/${user.avatar}`}
               alt={user.name}
               className="w-full h-full object-cover"
             />
