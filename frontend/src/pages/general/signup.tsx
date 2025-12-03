@@ -106,7 +106,7 @@ export const SignUp = () => {
 
           <button
             type="submit"
-            className="w-full cursor-pointer bg-gray-800 text-white py-3 rounded-xl font-semibold hover:bg-gray-900 transition shadow-md"
+            className="w-full cursor-pointer bg-gray-800 text-white py-3 rounded-xl font-semibold hover:bg-gray-900 transition shadow-md hover:shadow-lg hover:scale-105"
           >
             Sign Up
           </button>

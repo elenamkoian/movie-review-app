@@ -77,7 +77,7 @@ export const SearchedUserPage = () => {
         <div className="mt-10 flex gap-4">
           <button
             onClick={() => setActiveTab("saved")}
-            className={`flex-1 py-2 rounded-md text-sm shadow-md transition cursor-pointer
+            className={`flex-1 py-2 rounded-md text-sm shadow-md transition cursor-pointer hover:shadow-lg hover:scale-105
               ${
                 activeTab === "saved"
                   ? "bg-gray-700 text-white"
@@ -90,7 +90,7 @@ export const SearchedUserPage = () => {
 
           <button
             onClick={() => setActiveTab("reviews")}
-            className={`flex-1 py-2 rounded-md text-sm shadow-md transition cursor-pointer
+            className={`flex-1 py-2 rounded-md text-sm shadow-md transition cursor-pointer hover:shadow-lg hover:scale-105
               ${
                 activeTab === "reviews"
                   ? "bg-gray-700 text-white"

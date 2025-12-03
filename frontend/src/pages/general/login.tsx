@@ -86,7 +86,7 @@ export const Login = () => {
           Don't have an account?{" "}
           <Link
             to="/signup"
-            className="text-gray-800 font-semibold hover:underline"
+            className="text-gray-800 font-semibold hover:underline transform hover:shadow-lg hover:scale-105"
           >
             Sign Up
           </Link>

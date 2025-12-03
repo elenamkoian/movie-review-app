@@ -41,8 +41,6 @@ export const ProfilePage = () => {
       );
   };
 
-  console.log(profile);
-
   const handleUploadAvatar = async (file: File) => {
     try {
       const formData = new FormData();
@@ -97,13 +95,13 @@ export const ProfilePage = () => {
             <div className="flex gap-3 mt-5">
               <button
                 onClick={() => setShowUploader(true)}
-                className="bg-gray-800 flex-1 cursor-pointer text-white py-2 rounded-lg hover:bg-gray-600 transition"
+                className="bg-gray-800 flex-1 cursor-pointer text-white py-2 rounded-lg hover:bg-gray-600 transition hover:shadow-lg hover:scale-105"
               >
                 Upload Avatar
               </button>
               <button
                 onClick={handleLogout}
-                className="bg-gray-300 flex-1 cursor-pointer text-black py-2 rounded-lg hover:bg-gray-400 transition"
+                className="bg-gray-300 flex-1 cursor-pointer text-black py-2 rounded-lg hover:bg-gray-400 transition hover:shadow-lg hover:scale-105"
               >
                 Log Out
               </button>
@@ -151,7 +149,7 @@ export const ProfilePage = () => {
         <div className="w-full bg-gray-50 py-6 mt-8 px-4 rounded-2xl shadow-inner cursor-pointer">
           <button
             onClick={() => setShowSettings(!showSettings)}
-            className="w-full bg-gray-700 text-white py-2 rounded-md hover:bg-gray-600 transition shadow-md"
+            className="w-full bg-gray-700 text-white py-2 rounded-md hover:bg-gray-600 transition shadow-md hover:shadow-lg hover:scale-102"
           >
             {showSettings ? "Hide Settings" : "Show Settings"}
           </button>

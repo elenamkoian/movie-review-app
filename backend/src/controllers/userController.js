@@ -88,12 +88,11 @@ class UserController {
   async getUserReviews(req, res) {
     try {
       const userId = req.params.id || req.user?._id;
-
       const reviews = await Review.find({ userId });
 
-      return res.status(200).json({ message: "Fetched reviews", reviews });
+      return res.status(200).send({ message: "Fetched reviews", reviews });
     } catch (err) {
-      return res.status(500).json({ message: "Failed to fetch reviews" });
+      return res.status(500).send({ message: "Failed to fetch reviews" });
     }
   }
 
@@ -178,13 +177,9 @@ class UserController {
   async getUserById(req, res) {
     try {
       const { id } = req.params
-      console.log(id);
-
       let user = await User.findById({_id: id})
-      console.log(user)
 
       return res.status(200).send({ message: "User fetched successfully", user })
-
     } catch(error) {
        return res.status(400).send({ message: "The user is not found"})
     }

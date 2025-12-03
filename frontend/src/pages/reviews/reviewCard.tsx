@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import type { IReview } from "../../types";
 import { useState } from "react";
-import { ConfirmationModal } from "../../helpers/ConfirmationModal";
+import { ConfirmationModal } from "../../helpers/confirmationModal";
 
 interface ReviewCardProps {
   review: IReview;
@@ -55,14 +55,14 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({
                   <div className="flex gap-2 items-end">
                     <button
                       type="submit"
-                      className="cursor-pointer flex-1 px-3 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
+                      className="cursor-pointer flex-1 px-3 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition hover:shadow-lg hover:scale-105 "
                     >
                       Save
                     </button>
                     <button
                       type="button"
                       onClick={() => setEditMode(false)}
-                      className="cursor-pointer flex-1 px-3 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition"
+                      className="cursor-pointer flex-1 px-3 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition ransition hover:shadow-lg hover:scale-105"
                     >
                       Cancel
                     </button>
@@ -80,13 +80,13 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({
             <div className="flex gap-2 mt-4">
               <button
                 onClick={() => setEditMode(true)}
-                className="cursor-pointer flex-1 px-3 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-800 transition"
+                className="cursor-pointer flex-1 px-3 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-800 transition over:shadow-lg hover:scale-105"
               >
                 Edit
               </button>
               <button
                 onClick={() => setShowModal(true)}
-                className="cursor-pointer flex-1 px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
+                className="cursor-pointer flex-1 px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition over:shadow-lg hover:scale-105"
               >
                 Delete
               </button>

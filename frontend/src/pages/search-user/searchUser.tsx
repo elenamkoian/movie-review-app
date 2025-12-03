@@ -15,7 +15,6 @@ export const SearchUserPage = () => {
     Axios.get(`/auth/users/search/${searchText}`)
       .then((response) => {
         const users = response.data.users;
-        console.log(users)
         setSearchedUsers(users);
       })
       .catch((error) =>
@@ -39,7 +38,7 @@ export const SearchUserPage = () => {
             />
             <button
               onClick={handleSearch}
-              className="bg-gray-800 cursor-pointer text-white px-5 py-2 rounded-lg hover:bg-gray-600 transition"
+              className="bg-gray-800 cursor-pointer text-white px-5 py-2 rounded-lg hover:bg-gray-600 transition hover:shadow-lg hover:scale-105"
             >
               Search
             </button>

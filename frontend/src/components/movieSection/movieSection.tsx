@@ -12,7 +12,7 @@ export const MovieSection: React.FC<MovieSectionProps> = ({
 }) => {
   return (
     <section className="py-20 px-8 bg-linear-to-b from-gray-50 to-gray-100">
-      <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
+      <h2 className="text-3xl font-bold text-gray-900 my-8 text-center">
         🎥 {sectionTitle}
       </h2>
 

@@ -60,14 +60,14 @@ export const AddReviewForm: React.FC<AddReviewFormProps> = ({
             <div className="flex justify-end gap-2 mt-4">
               <button
                 type="button"
-                className="cursor-pointer px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400 transition"
+                className="cursor-pointer px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400 transition hover:scale-105 hover:shadow-lg transform duration-200 ease-in-out"
                 onClick={onCancel}
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="cursor-pointer px-4 py-2 bg-gray-700 text-white rounded-md hover:bg-gray-600 transition"
+                className="cursor-pointer px-4 py-2 bg-gray-700 text-white rounded-md hover:bg-gray-600 transition hover:scale-105 hover:shadow-lg transform duration-200 ease-in-out"
               >
                 Submit
               </button>

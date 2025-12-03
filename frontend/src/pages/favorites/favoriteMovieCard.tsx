@@ -1,8 +1,7 @@
 import { useState } from "react";
 import type { IFavoriteMovie } from "../../types";
 import { format } from "date-fns";
-import { ConfirmationModal } from "../../helpers/ConfirmationModal";
-
+import { ConfirmationModal } from "../../helpers/confirmationModal";
 interface FavoriteMovieCardProps {
   favorite: IFavoriteMovie;
   onDeleteFavorite: (id: string) => void;
@@ -43,14 +42,14 @@ export const FavoriteMovieCard: React.FC<FavoriteMovieCardProps> = ({
 
         <div className="flex gap-3">
           <button
-            className="cursor-pointer px-4 py-2 bg-gray-700 text-white rounded-md hover:bg-gray-800 transition"
+            className="cursor-pointer px-4 py-2 bg-gray-700 text-white rounded-md hover:bg-gray-800 transition hover:shadow-lg hover:scale-105"
             onClick={() => onToggleWatch(favorite._id)}
           >
             {favorite.watched ? "Mark Unwatched" : "Mark Watched"}
           </button>
           <button
             onClick={() => setShowModal(true)}
-            className="cursor-pointer px-2 py-2 bg-gray-300 rounded-md hover:bg-gray-400 transition"
+            className="cursor-pointer px-2 py-2 bg-gray-300 rounded-md hover:bg-gray-400 transition hover:shadow-lg hover:scale-105"
           >
             Remove
           </button>

@@ -36,7 +36,7 @@ export const MoviesPage = () => {
     <div className="min-h-screen bg-gray-50 text-gray-900">
       <MovieSection
          movies={movies}
-         sectionTitle={`${category && category?.charAt(0).toUpperCase() + category?.slice(1)} Movies`} />
+         sectionTitle={`${category && category?.charAt(0).toUpperCase() + category?.slice(1)}`} />
     </div>
   );
 };

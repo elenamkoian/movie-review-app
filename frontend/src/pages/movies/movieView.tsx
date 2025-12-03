@@ -36,7 +36,6 @@ export const MovieView = () => {
 
     Axios.get(`/movies/${id}/reviews/all`)
       .then((response) => {
-        console.log(response);
         setAllReviews(response.data.reviews);
       })
       .catch((error) => {
@@ -117,9 +116,9 @@ export const MovieView = () => {
                   <p>Release Date: {movie.release_date}</p>
                   <p>
                     Language(s):{" "}
-                    {movie.spoken_languages
+                    {movie.spoken_languages.length ? movie.spoken_languages
                       .map((lang) => lang.english_name)
-                      .join(", ")}
+                      .join(", ") : "N/A"}
                   </p>
                 </div>
 
@@ -168,7 +167,6 @@ export const MovieView = () => {
         </div>
       )}
 
-      {/* Review Form */}
       {showReviewForm && (
         <div ref={formRef}>
           <AddReviewForm
@@ -179,7 +177,6 @@ export const MovieView = () => {
         </div>
       )}
 
-      {/* All the reviews of app users about that specific movie */}
       {allReviews && showReviewsCard && (
         <div ref={reviewsRef}>
           <AllReviews

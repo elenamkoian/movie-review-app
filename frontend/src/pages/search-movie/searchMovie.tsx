@@ -71,7 +71,7 @@ export const SearchMoviePage = () => {
             />
             <button
               onClick={handleSearch}
-              className="bg-gray-800 cursor-pointer text-white px-5 py-2 rounded-lg hover:bg-gray-600 transition"
+              className="bg-gray-800 cursor-pointer text-white px-5 py-2 rounded-lg hover:bg-gray-600 transition hover:shadow-lg hover:scale-105"
             >
               Search
             </button>
@@ -132,7 +132,7 @@ export const SearchMoviePage = () => {
 
             <button
               onClick={handleFilter}
-              className="w-full bg-gray-800 cursor-pointer text-white rounded-lg py-2 hover:bg-gray-600 transition"
+              className="w-full bg-gray-800 cursor-pointer text-white rounded-lg py-2 hover:bg-gray-600 transition hover:shadow-lg hover:scale-105"
             >
               Apply Filters
             </button>

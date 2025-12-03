@@ -3,37 +3,49 @@ import fetch from "node-fetch";
 import dotenv from "dotenv";
 import Review from "../models/review.js";
 import Favorite from "../models/favorite.js"
+import Redis from 'ioredis';
 
 dotenv.config();
-
+const redis = new Redis();
 const API_KEY = process.env.TMDB_API_KEY;
 
 class MovieController {
   async getMovies(req, res) {
     const category = req.query.category || "popular";
     try {
+      const cached = await redis.get("movies:" + category);
+      if (cached) {
+        return res.status(200).send({ message: "Cashed movies", movies: JSON.parse(cached) });
+      }
+
       const result = await fetch(
         `https://api.themoviedb.org/3/movie/${category}?api_key=${API_KEY}&language=en-US`
       );
 
       const data = await result.json();
       const movies = data.results;
+      await redis.set("movies:" + category, JSON.stringify(movies), 'EX', 3600); // Cache for 1 hour
 
-      return res.status(200).send({ movies })
+      return res.status(200).send({ message: "Fetched movies", movies, })
     } catch (err) {
       return res.ststus(500).send({ message: err.message })
     }
   }
 
-  async getMoviesWirhGenre(req, res) {
+  async getMoviesWithGenre(req, res) {
     const genreId = req.query.genreId;
     try {
+      const cached = await redis.get("moviesWithGenre:" + genreId);
+      if (cached) {
+        return res.status(200).send({ message: "Cashed movies with genrer", movies: JSON.parse(cached) });
+      }
       const result = await fetch(
         `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=${genreId}&language=en-US`
       );
 
       const data = await result.json();
       const movies = data.results;
+      await redis.set("moviesWithGenre:" + genreId, JSON.stringify(movies), 'EX', 3600); // Cache for 1 hour
 
       return res.status(200).send({ movies })
     } catch (err) {
@@ -207,6 +219,11 @@ class MovieController {
   async searchMovie(req, res) {
     try {
       const { searchText } = req.params;
+      const cached = await redis.get("searchMovie:" + searchText);
+      if (cached) {
+        return res.status(200).send({ message: "Cashed searched movies", movies: JSON.parse(cached) });
+      }
+
       const response = await axios.get(`https://api.themoviedb.org/3/search/movie`, {
         params: {
           api_key: API_KEY,
@@ -215,11 +232,13 @@ class MovieController {
         },
       });
 
-      if (!response.data.results || response.data.results.length === 0) {
+      const searchResults = response.data.results;
+      if(!searchResults || searchResults.length === 0) {
         return res.status(404).send({ message: "No movies found." });
       }
 
-      return res.status(200).send({ message: "Movies fetched successfully", movies: response.data.results });
+      await redis.set("searchMovie:" + searchText, JSON.stringify(searchResults), 'EX', 3600); // Cache for 1 hour
+      return res.status(200).send({ message: "Movies fetched successfully", movies: searchResults });
     } catch (error) {
       console.error(error);
       return res.status(500).send({ message: error.message });
