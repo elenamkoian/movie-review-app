@@ -37,7 +37,13 @@ export const SearchedUserPage = () => {
       <div className="bg-white w-full h-full max-w-2xl mt-20 rounded-3xl shadow-xl p-6">
         <div className="flex flex-col items-center gap-4">
           <img
-            src={`${import.meta.env.VITE_API_URL}/uploads/${searchedUser.avatar}`}
+            src={
+              searchedUser.avatar
+                ? searchedUser.avatar.startsWith("http")
+                  ? searchedUser.avatar
+                  : `${import.meta.env.VITE_API_URL}/uploads/${searchedUser.avatar}`
+                : "../src/assets/avatar.png"
+            }
             alt={searchedUser.name}
             className="w-28 h-28 rounded-full object-cover border border-gray-300 shadow-sm"
           />

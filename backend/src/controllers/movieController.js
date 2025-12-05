@@ -103,8 +103,8 @@ class MovieController {
 
     try {
       const result = await Review.updateOne(
-        { _id: reviewId, userId: user._id }, // filter
-        { $set: { description, edited: true } } // update
+        { _id: reviewId, userId: user._id },
+        { $set: { description, edited: true } }
       );
 
       if (result.modifiedCount === 0) {

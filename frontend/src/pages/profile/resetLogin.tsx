@@ -46,7 +46,7 @@ export const ResetLogin = () => {
           placeholder="New login"
           className="w-full border border-gray-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-200"
         />
-        <button className="bg-gray-800 text-white cursor-pointer py-2 px-4 rounded-md hover:bg-gray-700 transition shadow-md hover:shadow-lg hover:scale-105">
+        <button className="bg-gray-800 text-white cursor-pointer py-2 px-4 rounded-md hover:bg-gray-700 transition shadow-md">
           Reset Login
         </button>
       </form>

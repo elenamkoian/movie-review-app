@@ -4,7 +4,6 @@ import { Axios } from "../../lib/api";
 import { useNavigate } from "react-router-dom";
 import type { ILoginUser } from "../../types";
 import { toast } from "react-toastify";
-// import axios from "axios";
 
 export const Login = () => {
   const {
@@ -34,7 +33,6 @@ export const Login = () => {
         </h1>
 
         <form onSubmit={handleSubmit(handleLogin)} className="space-y-6">
-          {/* Login */}
           <div>
             {errors.login && (
               <p className="text-red-700">{errors.login.message}</p>
@@ -50,7 +48,6 @@ export const Login = () => {
             />
           </div>
 
-          {/* Password */}
           <div>
             {errors.password && (
               <p className="text-red-700">{errors.password.message}</p>
@@ -72,7 +69,6 @@ export const Login = () => {
             />
           </div>
 
-          {/* Submit Button */}
           <button
             type="submit"
             className="w-full cursor-pointer bg-gray-800 text-white py-3 rounded-xl font-semibold hover:bg-gray-900 transition shadow-md"
@@ -81,7 +77,6 @@ export const Login = () => {
           </button>
         </form>
 
-        {/* Login Link */}
         <p className="text-center text-sm text-gray-500 mt-6">
           Don't have an account?{" "}
           <Link

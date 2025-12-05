@@ -29,7 +29,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
       isOpen={true}
       onRequestClose={onClose}
       className="bg-white p-6 rounded-2xl max-w-md w-full mx-auto outline-none"
-      overlayClassName="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center"
+      overlayClassName="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-20"
       ariaHideApp={false}
     >
       <h2 className="text-xl font-semibold text-center">Upload avatar</h2>
@@ -64,11 +64,11 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
         <button
           onClick={uploadHandler}
           disabled={!file}
-          className={`px-5 py-2 rounded-xl transition font-medium cursor-pointer text-white
+          className={`px-5 py-2 rounded-xl transition font-medium cursor-pointer text-white transform hover:scale-110 ease-in-out
             ${
               file
-                ? "bg-gray-700 hover:bg-gray-500"
-                : "bg-gray-700 hover:bg-gray-500 cursor-not-allowed"
+                ? "bg-gray-800 hover:bg-gray-600"
+                : "bg-gray-800 hover:bg-gray-600 cursor-not-allowed"
             }
           `}
         >
@@ -77,7 +77,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
 
         <button
           onClick={onClose}
-          className="text-white px-5 py-2 rounded-xl bg-red-400 hover:bg-red-600 transition font-medium cursor-pointer"
+          className="text-white px-5 py-2 rounded-xl bg-red-600 hover:bg-red-400 transition font-medium cursor-pointer transform hover:scale-110 ease-in-out"
         >
           Cancel
         </button>

@@ -24,17 +24,26 @@ export const Navbar = () => {
 
   return (
     <nav className="bg-gray-800 shadow-md fixed top-0 w-full z-10">
-      <div className="max-w-6xl mx-auto px-6 py-4 flex gap-20 items-center">
-        {/* Left Section - Logo */}
+      <div className="max-w-6xl mx-auto  py-4 flex gap-20 items-center">
         <Link to="/">
-          <p className="text-2xl font-semibold text-gray-200 cursor-pointer">MovieReviewApp</p>
+          <p className="text-2xl font-semibold text-gray-200 cursor-pointer">
+            MovieReviewApp
+          </p>
         </Link>
 
-        {/* Middle Section - Links */}
         <div className="flex items-center space-x-4">
-          <div className="relative" ref={dropdownRef}>
+          <div
+            className="relative"
+            ref={dropdownRef}
+            onBlur={(e) => {
+              // Close ONLY if the blur is leaving the container entirely
+              if (!e.currentTarget.contains(e.relatedTarget)) {
+                setDropdownOpen(false);
+              }
+            }}
+          >
             <button
-              onClick={() => setDropdownOpen((prev) => !prev)}
+              onClick={() => setDropdownOpen(!isDropdownOpen)}
               className="cursor-pointer px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white flex items-center gap-1"
             >
               Movies
@@ -47,7 +56,6 @@ export const Navbar = () => {
               </span>
             </button>
 
-            {/* Dropdown */}
             <div
               className={`absolute left-0 mt-2 -mx-12 w-44 bg-gray-800 rounded-b-md shadow-lg transition-all duration-200 ${
                 isDropdownOpen

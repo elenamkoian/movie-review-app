@@ -97,11 +97,11 @@ export const ProfilePage = () => {
                 onClick={() => setShowUploader(true)}
                 className="bg-gray-800 flex-1 cursor-pointer text-white py-2 rounded-lg hover:bg-gray-600 transition hover:shadow-lg hover:scale-105"
               >
-                Upload Avatar
+                {profile.avatar ? "Update" : "Upload"} Avatar
               </button>
               <button
                 onClick={handleLogout}
-                className="bg-gray-300 flex-1 cursor-pointer text-black py-2 rounded-lg hover:bg-gray-400 transition hover:shadow-lg hover:scale-105"
+                className="bg-gray-300 font-semibold flex-1 cursor-pointer text-black py-2 rounded-lg hover:bg-gray-400 transition hover:shadow-lg hover:scale-105"
               >
                 Log Out
               </button>
@@ -149,18 +149,24 @@ export const ProfilePage = () => {
         <div className="w-full bg-gray-50 py-6 mt-8 px-4 rounded-2xl shadow-inner cursor-pointer">
           <button
             onClick={() => setShowSettings(!showSettings)}
-            className="w-full bg-gray-700 text-white py-2 rounded-md hover:bg-gray-600 transition shadow-md hover:shadow-lg hover:scale-102"
+            className="w-full bg-gray-800 text-white py-2 rounded-md hover:bg-gray-600 transition shadow-md hover:shadow-lg hover:scale-102"
           >
             {showSettings ? "Hide Settings" : "Show Settings"}
           </button>
 
-          {showSettings && (
-            <div className="mt-6 space-y-6">
+          <div
+            className={` overflow-hidden transition-all duration-300 ${
+              showSettings
+                ? "max-h-[500px] opacity-100 mt-6"
+                : "max-h-0 opacity-0"
+            } `}
+          >
+            <div className="space-y-6">
               <ResetLogin />
               <hr className="border-gray-200" />
               <ResetPassword />
             </div>
-          )}
+          </div>
         </div>
       </div>
     </div>

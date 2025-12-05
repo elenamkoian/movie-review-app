@@ -68,6 +68,12 @@ export const SearchMoviePage = () => {
               value={searchText}
               onChange={(ev) => setSearchText(ev.target.value)}
               className="flex-1 border border-gray-200 rounded-lg px-4 py-2 text-gray-700"
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  handleSearch();
+                }
+              }}
             />
             <button
               onClick={handleSearch}

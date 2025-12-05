@@ -25,7 +25,7 @@ export const SearchUserPage = () => {
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900 flex items-center justify-center py-24 px-8">
       <div className="w-6xl">
-        <div className="bg-white rounded-2xl shadow-md p-6 h-80 border border-gray-100 flex flex-col">
+        <div className="bg-white h-full min-h-60 rounded-2xl shadow-md p-6 border border-gray-100 flex flex-col">
           <h2 className="text-xl font-semibold mb-4">Search Users</h2>
 
           <div className="flex gap-3 mb-6">
@@ -35,6 +35,12 @@ export const SearchUserPage = () => {
               value={searchText}
               onChange={(ev) => setSearchText(ev.target.value)}
               className="flex-1 border border-gray-200 rounded-lg px-4 py-2 text-gray-700"
+              onKeyDown={(ev) => {
+                if(ev.key === "Enter") {
+                  ev.preventDefault()
+                  handleSearch()
+                }
+              }}
             />
             <button
               onClick={handleSearch}
