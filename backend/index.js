@@ -4,7 +4,6 @@ import { env } from './src/config/env.js';
 import { connectDb, disconnectDb } from './src/config/db.js';
 import cors from "cors"
 import { movieRouter } from "./src/routes/movie.js";
-import e from "express";
 
 const app = express();
 

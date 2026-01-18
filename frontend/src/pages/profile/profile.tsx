@@ -12,7 +12,7 @@ export const ProfilePage = () => {
   const [reviews, setReviews] = useState<IReview[]>();
   const [favorites, setFavorites] = useState<IFavoriteMovie[]>([]);
   const [showSettings, setShowSettings] = useState(false);
-  const [showUplader, setShowUploader] = useState(false);
+  const [showUploader, setShowUploader] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -84,6 +84,7 @@ export const ProfilePage = () => {
                   : `${import.meta.env.VITE_API_URL}/uploads/${profile.avatar}`
                 : "../src/assets/avatar.png"
             }
+            alt="User Avatar"
             className="w-28 h-28 rounded-full object-cover border border-gray-300 shadow-sm"
           />
 
@@ -107,7 +108,7 @@ export const ProfilePage = () => {
               </button>
             </div>
 
-            {showUplader && (
+            {showUploader && (
               <div className="mt-6">
                 <ImageUploader
                   onClose={() => setShowUploader(false)}

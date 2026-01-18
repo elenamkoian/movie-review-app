@@ -18,7 +18,6 @@ export const Navbar = () => {
     { label: "Upcoming", to: "/movies/upcoming" },
     { label: "Action", to: "/movies/action" },
     { label: "Comedy", to: "/movies/comedy" },
-    { label: "Romance", to: "/movies/romance" },
     { label: "Animation", to: "/movies/animation" },
   ];
 
